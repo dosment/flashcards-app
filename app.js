@@ -438,7 +438,36 @@ class FlashcardApp {
                             name: 'Lesson 2.2: Chemical Changes',
                             color: '#3F51B5',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'physical change',
+                                    back: 'a change in size, shape, form, or state of matter that does not change the matter\'s identity.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'chemical change',
+                                    back: 'a change in matter in which the substances that make up the matter change into other substances with different chemical and physical properties.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'chemical property',
+                                    back: 'the ability or inability of a substance to combine with or change into one or more new substances.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'law of conservation of mass',
+                                    back: 'law that states that the total mass of the substances before a chemical change is the same as the total mass of the substances after the chemical change.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'thermal energy',
+                                    back: 'the result of the motion of all the particles, and the distance and attractions between those particles in the system.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'precipitate',
+                                    back: 'a solid that sometimes forms when two liquid solutions combine.'
+                                }
                             ]
                         }
                     ]
@@ -453,7 +482,46 @@ class FlashcardApp {
                             name: 'Lesson 3.1: Identifying Forces',
                             color: '#00BCD4',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'force',
+                                    back: 'a push or a pull on an object.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'contact force',
+                                    back: 'a push or a pull on one object by another object that is touching it.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'applied force',
+                                    back: 'a force in which one object directly pushes or pulls on another object.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'friction',
+                                    back: 'a contact force that resists the sliding motion of two surfaces that are touching.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'normal force',
+                                    back: 'the support force exerted on an object that touches another stable object.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'noncontact force',
+                                    back: 'a force that one object can apply to another object without touching it.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'gravity',
+                                    back: 'an attractive force that exists between all objects that have mass.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'magnetism',
+                                    back: 'the force exerted by magnets when they repel or attract one another'
+                                }
                             ]
                         },
                         {
@@ -461,7 +529,21 @@ class FlashcardApp {
                             name: 'Lesson 3.2: Balanced and Unbalanced Forces',
                             color: '#00BCD4',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'net force',
+                                    back: 'the combination of all the forces acting on an object.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'balanced force',
+                                    back: 'forces acting on an object that combine and form a net force of zero.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'unbalanced force',
+                                    back: 'forces acting on an object that combine and form a net force that is not zero.'
+                                }
                             ]
                         },
                         {
@@ -469,7 +551,16 @@ class FlashcardApp {
                             name: 'Lesson 3.3: Third Law of Motion',
                             color: '#00BCD4',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'force pair',
+                                    back: 'the forces two objects apply to each other.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'Newton\'s third law of motion',
+                                    back: 'when an object applies a force on another object, the second object applies a force of the same strength on the first object but the force is in the opposite direction.'
+                                }
                             ]
                         }
                     ]
