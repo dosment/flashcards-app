@@ -1,23 +1,37 @@
-// Flashcard App - Kid-Friendly Design for Age 11
-// This app helps kids create and study flashcards easily
+// Flashcard App - Kid-Friendly Design with Subject and Chapter Organization
+// This app helps kids create and study flashcards organized by subject and chapter
 
 class FlashcardApp {
     constructor() {
-        this.data = {
-            decks: [],
-            settings: {
-                darkMode: false,
-                shuffle: true
+        this.currentUser = 'vance'; // Default user
+        this.userData = {
+            vance: {
+                subjects: [],
+                settings: {
+                    darkMode: false,
+                    shuffle: true
+                }
+            },
+            tucker: {
+                subjects: [],
+                settings: {
+                    darkMode: false,
+                    shuffle: true
+                }
             }
         };
         
         this.currentScreen = 'home';
+        this.currentSubject = null;
+        this.currentChapter = null;
         this.currentDeck = null;
         this.studyCards = [];
         this.currentCardIndex = 0;
         this.isCardFlipped = false;
         this.selectedColor = '#FF9800';
-        this.selectedDeckId = null;
+        this.selectedItemId = null;
+        this.selectedItemType = null;
+        this.mode = null; // 'create' or 'study'
         
         this.init();
     }
@@ -29,57 +43,170 @@ class FlashcardApp {
         this.applyTheme();
         this.showScreen('home');
         
-        // Create sample data if no data exists
-        if (this.data.decks.length === 0) {
-            this.createSampleDeck();
+        // Create sample data if no data exists for each user
+        if (this.userData.vance.subjects.length === 0) {
+            this.createSampleDataForUser('vance');
         }
+        if (this.userData.tucker.subjects.length === 0) {
+            this.createSampleDataForUser('tucker');
+        }
+        
+        this.updateTitle();
     }
     
     // Data Management
     loadData() {
-        const savedData = localStorage.getItem('flashcardData');
-        if (savedData) {
-            try {
-                this.data = JSON.parse(savedData);
-                // Ensure settings exist
-                if (!this.data.settings) {
-                    this.data.settings = { darkMode: false, shuffle: true };
+        // Load data for both users
+        for (const user of ['vance', 'tucker']) {
+            const savedData = localStorage.getItem(`flashcardData_${user}`);
+            if (savedData) {
+                try {
+                    const parsedData = JSON.parse(savedData);
+                    
+                    // Migration: Convert old deck structure to new subject/chapter structure
+                    if (parsedData.decks && !parsedData.subjects) {
+                        this.userData[user] = this.migrateOldDataStructure(parsedData);
+                    } else if (parsedData.subjects) {
+                        this.userData[user] = parsedData;
+                    }
+                    
+                    // Ensure settings exist
+                    if (!this.userData[user].settings) {
+                        this.userData[user].settings = { darkMode: false, shuffle: true };
+                    }
+                } catch (e) {
+                    console.error(`Error loading data for ${user}:`, e);
                 }
-            } catch (e) {
-                console.error('Error loading data:', e);
-                this.data = {
-                    decks: [],
-                    settings: { darkMode: false, shuffle: true }
-                };
             }
         }
+        
+        // Load last selected user
+        const lastUser = localStorage.getItem('lastSelectedUser');
+        if (lastUser && ['vance', 'tucker'].includes(lastUser)) {
+            this.currentUser = lastUser;
+        }
+        
+        // Update UI
+        document.getElementById('user-select').value = this.currentUser;
+    }
+    
+    migrateOldDataStructure(oldData) {
+        // Create a default subject for old decks
+        const defaultSubject = {
+            id: this.generateId(),
+            name: 'My Flashcards',
+            color: '#4CAF50',
+            chapters: [{
+                id: this.generateId(),
+                name: 'All Cards',
+                decks: oldData.decks || []
+            }]
+        };
+        
+        return {
+            subjects: [defaultSubject],
+            settings: oldData.settings || { darkMode: false, shuffle: true }
+        };
     }
     
     saveData() {
         try {
-            localStorage.setItem('flashcardData', JSON.stringify(this.data));
+            localStorage.setItem(`flashcardData_${this.currentUser}`, JSON.stringify(this.getCurrentUserData()));
+            localStorage.setItem('lastSelectedUser', this.currentUser);
         } catch (e) {
             console.error('Error saving data:', e);
             alert('Error saving your cards. Please try again.');
         }
     }
     
-    createSampleDeck() {
-        const sampleDeck = {
+    getCurrentUserData() {
+        return this.userData[this.currentUser];
+    }
+    
+    switchUser(newUser) {
+        if (!['vance', 'tucker'].includes(newUser)) return;
+        
+        this.currentUser = newUser;
+        this.currentSubject = null;
+        this.currentChapter = null;
+        this.currentDeck = null;
+        
+        // Save the user preference
+        localStorage.setItem('lastSelectedUser', this.currentUser);
+        
+        // Apply theme for current user
+        this.applyTheme();
+        
+        // Go back to home screen
+        this.showScreen('home');
+        
+        // Update title to show current user
+        this.updateTitle();
+    }
+    
+    updateTitle() {
+        const userName = this.currentUser.charAt(0).toUpperCase() + this.currentUser.slice(1);
+        document.querySelector('.app-title').textContent = `${userName}'s Flashcards`;
+    }
+    
+    createSampleDataForUser(user) {
+        const userData = this.userData[user];
+        const mathSubject = {
             id: this.generateId(),
-            name: 'Animals',
-            color: '#4CAF50',
-            cards: [
-                { id: this.generateId(), front: 'Cat', back: 'A small domesticated carnivorous mammal.' },
-                { id: this.generateId(), front: 'Dog', back: 'A loyal domesticated canine.' },
-                { id: this.generateId(), front: 'Elephant', back: 'The largest land animal with a trunk.' },
-                { id: this.generateId(), front: 'Lion', back: 'The king of the jungle with a mighty roar.' },
-                { id: this.generateId(), front: 'Penguin', back: 'A black and white bird that cannot fly but swims well.' }
+            name: 'Math',
+            color: '#2196F3',
+            chapters: [
+                {
+                    id: this.generateId(),
+                    name: 'Addition',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Basic Addition',
+                            color: '#4CAF50',
+                            cards: [
+                                { id: this.generateId(), front: '2 + 2', back: '4' },
+                                { id: this.generateId(), front: '5 + 3', back: '8' },
+                                { id: this.generateId(), front: '7 + 6', back: '13' }
+                            ]
+                        }
+                    ]
+                }
             ]
         };
         
-        this.data.decks.push(sampleDeck);
-        this.saveData();
+        const scienceSubject = {
+            id: this.generateId(),
+            name: 'Science',
+            color: '#4CAF50',
+            chapters: [
+                {
+                    id: this.generateId(),
+                    name: 'Animals',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Animal Facts',
+                            color: '#FF9800',
+                            cards: [
+                                { id: this.generateId(), front: 'Largest land animal?', back: 'Elephant' },
+                                { id: this.generateId(), front: 'Fastest land animal?', back: 'Cheetah' },
+                                { id: this.generateId(), front: 'Tallest animal?', back: 'Giraffe' }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+        
+        userData.subjects.push(mathSubject, scienceSubject);
+        
+        // Save data for this specific user
+        try {
+            localStorage.setItem(`flashcardData_${user}`, JSON.stringify(userData));
+        } catch (e) {
+            console.error(`Error saving sample data for ${user}:`, e);
+        }
     }
     
     generateId() {
@@ -90,11 +217,18 @@ class FlashcardApp {
     setupEventListeners() {
         // Home screen buttons
         document.getElementById('create-cards-btn').addEventListener('click', () => {
-            this.showDeckList('create');
+            this.mode = 'create';
+            this.showSubjectList();
         });
         
         document.getElementById('study-cards-btn').addEventListener('click', () => {
-            this.showDeckList('study');
+            this.mode = 'study';
+            this.showSubjectList();
+        });
+        
+        // User switcher
+        document.getElementById('user-select').addEventListener('change', (e) => {
+            this.switchUser(e.target.value);
         });
         
         // Header controls
@@ -111,25 +245,41 @@ class FlashcardApp {
         });
         
         // Navigation
-        document.getElementById('back-to-home').addEventListener('click', () => {
+        document.getElementById('back-to-home-subjects').addEventListener('click', () => {
             this.showScreen('home');
         });
         
-        document.getElementById('back-to-decks-create').addEventListener('click', () => {
-            this.showDeckList('create');
+        document.getElementById('back-to-subjects').addEventListener('click', () => {
+            this.showSubjectList();
         });
         
-        document.getElementById('back-to-decks-study').addEventListener('click', () => {
-            this.showDeckList('study');
+        document.getElementById('back-to-chapters').addEventListener('click', () => {
+            this.showChapterList();
         });
         
-        // Deck management
+        document.getElementById('back-from-create').addEventListener('click', () => {
+            this.showDeckList();
+        });
+        
+        document.getElementById('back-from-study').addEventListener('click', () => {
+            this.showDeckList();
+        });
+        
+        // Add buttons
+        document.getElementById('add-subject-btn').addEventListener('click', () => {
+            this.showAddSubjectModal();
+        });
+        
+        document.getElementById('add-chapter-btn').addEventListener('click', () => {
+            this.showAddChapterModal();
+        });
+        
         document.getElementById('add-deck-btn').addEventListener('click', () => {
             this.showAddDeckModal();
         });
         
         document.getElementById('done-creating').addEventListener('click', () => {
-            this.showDeckList('create');
+            this.showDeckList();
         });
         
         // Card creation
@@ -155,7 +305,7 @@ class FlashcardApp {
         });
         
         document.getElementById('shuffle-checkbox').addEventListener('change', (e) => {
-            this.data.settings.shuffle = e.target.checked;
+            this.getCurrentUserData().settings.shuffle = e.target.checked;
             this.saveData();
             if (this.studyCards.length > 0) {
                 this.setupStudySession();
@@ -185,6 +335,24 @@ class FlashcardApp {
     }
     
     setupModalListeners() {
+        // Add Subject Modal
+        document.getElementById('save-subject').addEventListener('click', () => {
+            this.saveSubject();
+        });
+        
+        document.getElementById('cancel-subject').addEventListener('click', () => {
+            this.hideModal('add-subject-modal');
+        });
+        
+        // Add Chapter Modal
+        document.getElementById('save-chapter').addEventListener('click', () => {
+            this.saveChapter();
+        });
+        
+        document.getElementById('cancel-chapter').addEventListener('click', () => {
+            this.hideModal('add-chapter-modal');
+        });
+        
         // Add Deck Modal
         document.getElementById('save-deck').addEventListener('click', () => {
             this.saveDeck();
@@ -194,38 +362,59 @@ class FlashcardApp {
             this.hideModal('add-deck-modal');
         });
         
-        // Deck Options Modal
-        document.getElementById('rename-deck').addEventListener('click', () => {
-            this.renameDeck();
+        // Options Modal
+        document.getElementById('rename-item').addEventListener('click', () => {
+            this.renameItem();
         });
         
-        document.getElementById('delete-deck').addEventListener('click', () => {
-            this.deleteDeck();
+        document.getElementById('delete-item').addEventListener('click', () => {
+            this.deleteItem();
         });
         
         document.getElementById('cancel-options').addEventListener('click', () => {
-            this.hideModal('deck-options-modal');
+            this.hideModal('options-modal');
         });
         
-        // Color picker
-        document.querySelectorAll('.color-option').forEach(button => {
+        // Color picker for subjects
+        document.querySelectorAll('.subject-colors .color-option').forEach(button => {
             button.addEventListener('click', () => {
-                document.querySelectorAll('.color-option').forEach(b => b.classList.remove('selected'));
+                document.querySelectorAll('.subject-colors .color-option').forEach(b => b.classList.remove('selected'));
+                button.classList.add('selected');
+                this.selectedColor = button.dataset.color;
+            });
+        });
+        
+        // Color picker for decks
+        document.querySelectorAll('.deck-colors .color-option').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.deck-colors .color-option').forEach(b => b.classList.remove('selected'));
                 button.classList.add('selected');
                 this.selectedColor = button.dataset.color;
             });
         });
         
         // Modal backdrop clicks
+        document.getElementById('add-subject-modal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                this.hideModal('add-subject-modal');
+            }
+        });
+        
+        document.getElementById('add-chapter-modal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                this.hideModal('add-chapter-modal');
+            }
+        });
+        
         document.getElementById('add-deck-modal').addEventListener('click', (e) => {
             if (e.target.classList.contains('modal')) {
                 this.hideModal('add-deck-modal');
             }
         });
         
-        document.getElementById('deck-options-modal').addEventListener('click', (e) => {
+        document.getElementById('options-modal').addEventListener('click', (e) => {
             if (e.target.classList.contains('modal')) {
-                this.hideModal('deck-options-modal');
+                this.hideModal('options-modal');
             }
         });
     }
@@ -266,39 +455,148 @@ class FlashcardApp {
         // Show selected screen
         document.getElementById(`${screenName}-screen`).classList.add('active');
         this.currentScreen = screenName;
+    }
+    
+    showSubjectList() {
+        document.getElementById('subject-list-title').textContent = 
+            this.mode === 'create' ? 'Choose a Subject to Edit' : 'Choose a Subject to Study';
+        this.showScreen('subject-list');
+        this.updateSubjectList();
+    }
+    
+    showChapterList() {
+        if (!this.currentSubject) return;
         
-        // Update screen content
-        switch(screenName) {
-            case 'home':
-                this.updateHomeScreen();
-                break;
-            case 'deck-list':
-                this.updateDeckList();
-                break;
-            case 'create-cards':
-                this.updateCreateCardsScreen();
-                break;
-            case 'study':
-                this.updateStudyScreen();
-                break;
-        }
+        document.getElementById('chapter-list-title').textContent = 
+            `${this.currentSubject.name} - ${this.mode === 'create' ? 'Choose a Chapter' : 'Study a Chapter'}`;
+        this.showScreen('chapter-list');
+        this.updateChapterList();
     }
     
-    showDeckList(mode) {
-        this.deckListMode = mode;
+    showDeckList() {
+        if (!this.currentChapter) return;
+        
         document.getElementById('deck-list-title').textContent = 
-            mode === 'create' ? 'Choose a Deck to Edit' : 'Choose a Deck to Study';
+            `${this.currentSubject.name} > ${this.currentChapter.name}`;
         this.showScreen('deck-list');
+        this.updateDeckList();
     }
     
-    updateHomeScreen() {
-        // Home screen doesn't need dynamic updates
+    updateSubjectList() {
+        const subjectList = document.getElementById('subject-list');
+        const subjects = this.getCurrentUserData().subjects;
+        
+        if (subjects.length === 0) {
+            subjectList.innerHTML = `
+                <div class="empty-state">
+                    <h3>No subjects yet!</h3>
+                    <p>Click "Add Subject" to create your first subject.</p>
+                </div>
+            `;
+            return;
+        }
+        
+        subjectList.innerHTML = subjects.map(subject => {
+            const totalCards = subject.chapters.reduce((total, chapter) => {
+                return total + chapter.decks.reduce((chapterTotal, deck) => {
+                    return chapterTotal + deck.cards.length;
+                }, 0);
+            }, 0);
+            
+            return `
+                <div class="deck-card subject-card" data-subject-id="${subject.id}" tabindex="0">
+                    <div class="deck-color" style="background-color: ${subject.color}"></div>
+                    <div class="deck-header">
+                        <h3 class="deck-name">${this.escapeHtml(subject.name)}</h3>
+                        <button class="deck-options" data-subject-id="${subject.id}">⚙️</button>
+                    </div>
+                    <div class="deck-info">
+                        ${subject.chapters.length} chapter${subject.chapters.length !== 1 ? 's' : ''} • 
+                        ${totalCards} total card${totalCards !== 1 ? 's' : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        // Add event listeners for subject cards
+        subjectList.querySelectorAll('.subject-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.classList.contains('deck-options')) return;
+                const subjectId = card.dataset.subjectId;
+                this.selectSubject(subjectId);
+            });
+        });
+        
+        // Add event listeners for subject options
+        subjectList.querySelectorAll('.deck-options').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.selectedItemId = button.dataset.subjectId;
+                this.selectedItemType = 'subject';
+                document.getElementById('options-modal-title').textContent = 'Subject Options';
+                this.showModal('options-modal');
+            });
+        });
+    }
+    
+    updateChapterList() {
+        const chapterList = document.getElementById('chapter-list');
+        
+        if (this.currentSubject.chapters.length === 0) {
+            chapterList.innerHTML = `
+                <div class="empty-state">
+                    <h3>No chapters yet!</h3>
+                    <p>Click "Add Chapter" to organize your cards.</p>
+                </div>
+            `;
+            return;
+        }
+        
+        chapterList.innerHTML = this.currentSubject.chapters.map(chapter => {
+            const totalCards = chapter.decks.reduce((total, deck) => {
+                return total + deck.cards.length;
+            }, 0);
+            
+            return `
+                <div class="deck-card chapter-card" data-chapter-id="${chapter.id}" tabindex="0">
+                    <div class="deck-color" style="background-color: ${this.currentSubject.color}; opacity: 0.7;"></div>
+                    <div class="deck-header">
+                        <h3 class="deck-name">${this.escapeHtml(chapter.name)}</h3>
+                        <button class="deck-options" data-chapter-id="${chapter.id}">⚙️</button>
+                    </div>
+                    <div class="deck-info">
+                        ${chapter.decks.length} deck${chapter.decks.length !== 1 ? 's' : ''} • 
+                        ${totalCards} card${totalCards !== 1 ? 's' : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        // Add event listeners for chapter cards
+        chapterList.querySelectorAll('.chapter-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.classList.contains('deck-options')) return;
+                const chapterId = card.dataset.chapterId;
+                this.selectChapter(chapterId);
+            });
+        });
+        
+        // Add event listeners for chapter options
+        chapterList.querySelectorAll('.deck-options').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.selectedItemId = button.dataset.chapterId;
+                this.selectedItemType = 'chapter';
+                document.getElementById('options-modal-title').textContent = 'Chapter Options';
+                this.showModal('options-modal');
+            });
+        });
     }
     
     updateDeckList() {
         const deckList = document.getElementById('deck-list');
         
-        if (this.data.decks.length === 0) {
+        if (this.currentChapter.decks.length === 0) {
             deckList.innerHTML = `
                 <div class="empty-state">
                     <h3>No decks yet!</h3>
@@ -308,7 +606,7 @@ class FlashcardApp {
             return;
         }
         
-        deckList.innerHTML = this.data.decks.map(deck => `
+        deckList.innerHTML = this.currentChapter.decks.map(deck => `
             <div class="deck-card" data-deck-id="${deck.id}" tabindex="0">
                 <div class="deck-color" style="background-color: ${deck.color}"></div>
                 <div class="deck-header">
@@ -328,21 +626,16 @@ class FlashcardApp {
                 const deckId = card.dataset.deckId;
                 this.selectDeck(deckId);
             });
-            
-            card.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    const deckId = card.dataset.deckId;
-                    this.selectDeck(deckId);
-                }
-            });
         });
         
         // Add event listeners for deck options
         deckList.querySelectorAll('.deck-options').forEach(button => {
             button.addEventListener('click', (e) => {
                 e.stopPropagation();
-                this.selectedDeckId = button.dataset.deckId;
-                this.showModal('deck-options-modal');
+                this.selectedItemId = button.dataset.deckId;
+                this.selectedItemType = 'deck';
+                document.getElementById('options-modal-title').textContent = 'Deck Options';
+                this.showModal('options-modal');
             });
         });
     }
@@ -351,7 +644,7 @@ class FlashcardApp {
         if (!this.currentDeck) return;
         
         document.getElementById('create-cards-title').textContent = 
-            `Editing: ${this.currentDeck.name}`;
+            `${this.currentSubject.name} > ${this.currentChapter.name} > ${this.currentDeck.name}`;
         
         this.updateCardsList();
         this.clearCardInputs();
@@ -401,36 +694,108 @@ class FlashcardApp {
     updateStudyScreen() {
         if (!this.currentDeck) return;
         
-        document.getElementById('study-deck-name').textContent = this.currentDeck.name;
-        document.getElementById('shuffle-checkbox').checked = this.data.settings.shuffle;
+        document.getElementById('study-deck-name').textContent = 
+            `${this.currentSubject.name} > ${this.currentChapter.name} > ${this.currentDeck.name}`;
+        document.getElementById('shuffle-checkbox').checked = this.getCurrentUserData().settings.shuffle;
         
         this.setupStudySession();
         this.showCurrentCard();
     }
     
-    // Deck Management
+    // Navigation Methods
+    selectSubject(subjectId) {
+        this.currentSubject = this.getCurrentUserData().subjects.find(subject => subject.id === subjectId);
+        if (!this.currentSubject) return;
+        
+        this.showChapterList();
+    }
+    
+    selectChapter(chapterId) {
+        this.currentChapter = this.currentSubject.chapters.find(chapter => chapter.id === chapterId);
+        if (!this.currentChapter) return;
+        
+        this.showDeckList();
+    }
+    
     selectDeck(deckId) {
-        this.currentDeck = this.data.decks.find(deck => deck.id === deckId);
+        this.currentDeck = this.currentChapter.decks.find(deck => deck.id === deckId);
         if (!this.currentDeck) return;
         
-        if (this.deckListMode === 'create') {
+        if (this.mode === 'create') {
             this.showScreen('create-cards');
+            this.updateCreateCardsScreen();
         } else {
             if (this.currentDeck.cards.length === 0) {
                 alert('This deck has no cards yet! Add some cards first.');
                 return;
             }
             this.showScreen('study');
+            this.updateStudyScreen();
         }
+    }
+    
+    // Add Methods
+    showAddSubjectModal() {
+        document.getElementById('subject-name-input').value = '';
+        this.selectedColor = '#FF9800';
+        document.querySelectorAll('.subject-colors .color-option').forEach(b => b.classList.remove('selected'));
+        document.querySelector('.subject-colors [data-color="#FF9800"]').classList.add('selected');
+        this.showModal('add-subject-modal');
+        document.getElementById('subject-name-input').focus();
+    }
+    
+    showAddChapterModal() {
+        document.getElementById('chapter-name-input').value = '';
+        this.showModal('add-chapter-modal');
+        document.getElementById('chapter-name-input').focus();
     }
     
     showAddDeckModal() {
         document.getElementById('deck-name-input').value = '';
         this.selectedColor = '#FF9800';
-        document.querySelectorAll('.color-option').forEach(b => b.classList.remove('selected'));
-        document.querySelector('[data-color="#FF9800"]').classList.add('selected');
+        document.querySelectorAll('.deck-colors .color-option').forEach(b => b.classList.remove('selected'));
+        document.querySelector('.deck-colors [data-color="#FF9800"]').classList.add('selected');
         this.showModal('add-deck-modal');
         document.getElementById('deck-name-input').focus();
+    }
+    
+    saveSubject() {
+        const name = document.getElementById('subject-name-input').value.trim();
+        if (!name) {
+            alert('Please enter a subject name!');
+            return;
+        }
+        
+        const newSubject = {
+            id: this.generateId(),
+            name: name,
+            color: this.selectedColor,
+            chapters: []
+        };
+        
+        this.getCurrentUserData().subjects.push(newSubject);
+        this.saveData();
+        this.hideModal('add-subject-modal');
+        this.updateSubjectList();
+    }
+    
+    saveChapter() {
+        const name = document.getElementById('chapter-name-input').value.trim();
+        if (!name) {
+            alert('Please enter a chapter name!');
+            return;
+        }
+        
+        const newChapter = {
+            id: this.generateId(),
+            name: name,
+            decks: []
+        };
+        
+        this.currentSubject.chapters.push(newChapter);
+        this.saveData();
+        this.hideModal('add-chapter-modal');
+        this.updateChapterList();
     }
     
     saveDeck() {
@@ -447,37 +812,80 @@ class FlashcardApp {
             cards: []
         };
         
-        this.data.decks.push(newDeck);
+        this.currentChapter.decks.push(newDeck);
         this.saveData();
         this.hideModal('add-deck-modal');
         this.updateDeckList();
     }
     
-    renameDeck() {
-        const deck = this.data.decks.find(d => d.id === this.selectedDeckId);
-        if (!deck) return;
+    // Rename and Delete Methods
+    renameItem() {
+        let item, newName;
         
-        const newName = prompt('Enter new deck name:', deck.name);
-        if (newName && newName.trim()) {
-            deck.name = newName.trim();
-            this.saveData();
-            this.updateDeckList();
+        if (this.selectedItemType === 'subject') {
+            item = this.getCurrentUserData().subjects.find(s => s.id === this.selectedItemId);
+            if (!item) return;
+            newName = prompt('Enter new subject name:', item.name);
+        } else if (this.selectedItemType === 'chapter') {
+            item = this.currentSubject.chapters.find(c => c.id === this.selectedItemId);
+            if (!item) return;
+            newName = prompt('Enter new chapter name:', item.name);
+        } else if (this.selectedItemType === 'deck') {
+            item = this.currentChapter.decks.find(d => d.id === this.selectedItemId);
+            if (!item) return;
+            newName = prompt('Enter new deck name:', item.name);
         }
         
-        this.hideModal('deck-options-modal');
+        if (newName && newName.trim()) {
+            item.name = newName.trim();
+            this.saveData();
+            
+            // Update the appropriate list
+            if (this.selectedItemType === 'subject') {
+                this.updateSubjectList();
+            } else if (this.selectedItemType === 'chapter') {
+                this.updateChapterList();
+            } else if (this.selectedItemType === 'deck') {
+                this.updateDeckList();
+            }
+        }
+        
+        this.hideModal('options-modal');
     }
     
-    deleteDeck() {
-        const deck = this.data.decks.find(d => d.id === this.selectedDeckId);
-        if (!deck) return;
+    deleteItem() {
+        let confirmMessage, item;
         
-        if (confirm(`Are you sure you want to delete "${deck.name}"? This cannot be undone.`)) {
-            this.data.decks = this.data.decks.filter(d => d.id !== this.selectedDeckId);
-            this.saveData();
-            this.updateDeckList();
+        if (this.selectedItemType === 'subject') {
+            item = this.getCurrentUserData().subjects.find(s => s.id === this.selectedItemId);
+            if (!item) return;
+            confirmMessage = `Are you sure you want to delete the subject "${item.name}"? This will delete all chapters and cards within it.`;
+        } else if (this.selectedItemType === 'chapter') {
+            item = this.currentSubject.chapters.find(c => c.id === this.selectedItemId);
+            if (!item) return;
+            confirmMessage = `Are you sure you want to delete the chapter "${item.name}"? This will delete all decks and cards within it.`;
+        } else if (this.selectedItemType === 'deck') {
+            item = this.currentChapter.decks.find(d => d.id === this.selectedItemId);
+            if (!item) return;
+            confirmMessage = `Are you sure you want to delete the deck "${item.name}"? This will delete all cards within it.`;
         }
         
-        this.hideModal('deck-options-modal');
+        if (confirm(confirmMessage)) {
+            if (this.selectedItemType === 'subject') {
+                this.getCurrentUserData().subjects = this.getCurrentUserData().subjects.filter(s => s.id !== this.selectedItemId);
+                this.updateSubjectList();
+            } else if (this.selectedItemType === 'chapter') {
+                this.currentSubject.chapters = this.currentSubject.chapters.filter(c => c.id !== this.selectedItemId);
+                this.updateChapterList();
+            } else if (this.selectedItemType === 'deck') {
+                this.currentChapter.decks = this.currentChapter.decks.filter(d => d.id !== this.selectedItemId);
+                this.updateDeckList();
+            }
+            
+            this.saveData();
+        }
+        
+        this.hideModal('options-modal');
     }
     
     // Card Management
@@ -552,7 +960,7 @@ class FlashcardApp {
     setupStudySession() {
         this.studyCards = [...this.currentDeck.cards];
         
-        if (this.data.settings.shuffle) {
+        if (this.getCurrentUserData().settings.shuffle) {
             this.shuffleArray(this.studyCards);
         }
         
@@ -614,7 +1022,7 @@ class FlashcardApp {
     finishStudySession() {
         const totalCards = this.currentDeck.cards.length;
         alert(`Great job! You studied all ${totalCards} cards in "${this.currentDeck.name}".`);
-        this.showDeckList('study');
+        this.showDeckList();
     }
     
     shuffleArray(array) {
@@ -626,13 +1034,13 @@ class FlashcardApp {
     
     // Theme Management
     toggleTheme() {
-        this.data.settings.darkMode = !this.data.settings.darkMode;
+        this.getCurrentUserData().settings.darkMode = !this.getCurrentUserData().settings.darkMode;
         this.saveData();
         this.applyTheme();
     }
     
     applyTheme() {
-        if (this.data.settings.darkMode) {
+        if (this.getCurrentUserData().settings.darkMode) {
             document.body.setAttribute('data-theme', 'dark');
             document.getElementById('theme-toggle').textContent = '☀️';
         } else {
@@ -644,13 +1052,13 @@ class FlashcardApp {
     // Import/Export
     exportData() {
         try {
-            const dataStr = JSON.stringify(this.data, null, 2);
+            const dataStr = JSON.stringify(this.getCurrentUserData(), null, 2);
             const blob = new Blob([dataStr], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             
             const a = document.createElement('a');
             a.href = url;
-            a.download = `flashcards-backup-${new Date().toISOString().split('T')[0]}.json`;
+            a.download = `${this.currentUser}-flashcards-backup-${new Date().toISOString().split('T')[0]}.json`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -676,27 +1084,33 @@ class FlashcardApp {
             try {
                 const importedData = JSON.parse(e.target.result);
                 
-                // Validate data structure
-                if (!importedData.decks || !Array.isArray(importedData.decks)) {
-                    throw new Error('Invalid file format');
-                }
-                
-                if (confirm('This will replace all your current flashcards. Are you sure?')) {
-                    this.data = importedData;
-                    
-                    // Ensure settings exist
-                    if (!this.data.settings) {
-                        this.data.settings = { darkMode: false, shuffle: true };
-                    }
-                    
+                // Handle both old and new formats
+                if (importedData.decks && !importedData.subjects) {
+                    // Old format - migrate it
+                    this.userData[this.currentUser] = this.migrateOldDataStructure(importedData);
                     this.saveData();
-                    this.applyTheme();
-                    
-                    if (this.currentScreen === 'deck-list') {
-                        this.updateDeckList();
+                    alert('Your flashcards have been imported and converted to the new format!');
+                } else if (importedData.subjects && Array.isArray(importedData.subjects)) {
+                    // New format
+                    if (confirm(`This will replace all of ${this.currentUser}'s current flashcards. Are you sure?`)) {
+                        this.userData[this.currentUser] = importedData;
+                        
+                        // Ensure settings exist
+                        if (!this.userData[this.currentUser].settings) {
+                            this.userData[this.currentUser].settings = { darkMode: false, shuffle: true };
+                        }
+                        
+                        this.saveData();
+                        this.applyTheme();
+                        
+                        if (this.currentScreen === 'subject-list') {
+                            this.updateSubjectList();
+                        }
+                        
+                        alert(`${this.currentUser}'s flashcards have been imported successfully!`);
                     }
-                    
-                    alert('Your flashcards have been imported successfully!');
+                } else {
+                    throw new Error('Invalid file format');
                 }
             } catch (e) {
                 console.error('Import error:', e);

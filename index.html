@@ -46,6 +46,13 @@
         <!-- Header -->
         <header class="header">
             <h1 class="app-title">My Flashcards</h1>
+            <div class="user-switcher">
+                <label>User:</label>
+                <select id="user-select">
+                    <option value="vance">Vance</option>
+                    <option value="tucker">Tucker</option>
+                </select>
+            </div>
             <div class="header-controls">
                 <button id="theme-toggle" class="icon-button" title="Toggle dark mode">🌙</button>
                 <button id="import-button" class="icon-button" title="Import data">📁</button>
@@ -69,10 +76,30 @@
             </div>
         </div>
 
+        <!-- Subject List Screen -->
+        <div id="subject-list-screen" class="screen">
+            <div class="screen-header">
+                <button id="back-to-home-subjects" class="back-button">← Back</button>
+                <h2 id="subject-list-title">Choose a Subject</h2>
+                <button id="add-subject-btn" class="add-button">+ Add Subject</button>
+            </div>
+            <div id="subject-list" class="subject-list"></div>
+        </div>
+
+        <!-- Chapter List Screen -->
+        <div id="chapter-list-screen" class="screen">
+            <div class="screen-header">
+                <button id="back-to-subjects" class="back-button">← Back</button>
+                <h2 id="chapter-list-title">Choose a Chapter</h2>
+                <button id="add-chapter-btn" class="add-button">+ Add Chapter</button>
+            </div>
+            <div id="chapter-list" class="chapter-list"></div>
+        </div>
+
         <!-- Deck List Screen -->
         <div id="deck-list-screen" class="screen">
             <div class="screen-header">
-                <button id="back-to-home" class="back-button">← Back</button>
+                <button id="back-to-chapters" class="back-button">← Back</button>
                 <h2 id="deck-list-title">Choose a Deck</h2>
                 <button id="add-deck-btn" class="add-button">+ Add Deck</button>
             </div>
@@ -82,7 +109,7 @@
         <!-- Create/Edit Cards Screen -->
         <div id="create-cards-screen" class="screen">
             <div class="screen-header">
-                <button id="back-to-decks-create" class="back-button">← Back</button>
+                <button id="back-from-create" class="back-button">← Back</button>
                 <h2 id="create-cards-title">Create Cards</h2>
                 <button id="done-creating" class="done-button">Done</button>
             </div>
@@ -110,7 +137,7 @@
         <!-- Study Screen -->
         <div id="study-screen" class="screen">
             <div class="study-header">
-                <button id="back-to-decks-study" class="back-button">← Back</button>
+                <button id="back-from-study" class="back-button">← Back</button>
                 <div class="study-info">
                     <h2 id="study-deck-name">Deck Name</h2>
                     <div class="study-progress">
@@ -150,14 +177,49 @@
             </div>
         </div>
 
+        <!-- Add Subject Modal -->
+        <div id="add-subject-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Add New Subject</h3>
+                <input type="text" id="subject-name-input" placeholder="Subject name (e.g., Math, Science, History)">
+                <div class="color-picker">
+                    <label>Choose a color:</label>
+                    <div class="color-options subject-colors">
+                        <button class="color-option" data-color="#4CAF50" style="background: #4CAF50"></button>
+                        <button class="color-option" data-color="#2196F3" style="background: #2196F3"></button>
+                        <button class="color-option selected" data-color="#FF9800" style="background: #FF9800"></button>
+                        <button class="color-option" data-color="#9C27B0" style="background: #9C27B0"></button>
+                        <button class="color-option" data-color="#F44336" style="background: #F44336"></button>
+                        <button class="color-option" data-color="#607D8B" style="background: #607D8B"></button>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button id="cancel-subject" class="cancel-button">Cancel</button>
+                    <button id="save-subject" class="save-button">Save Subject</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Chapter Modal -->
+        <div id="add-chapter-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Add New Chapter</h3>
+                <input type="text" id="chapter-name-input" placeholder="Chapter name (e.g., Chapter 1, Algebra, Vocabulary)">
+                <div class="modal-buttons">
+                    <button id="cancel-chapter" class="cancel-button">Cancel</button>
+                    <button id="save-chapter" class="save-button">Save Chapter</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Add Deck Modal -->
         <div id="add-deck-modal" class="modal hidden">
             <div class="modal-content">
                 <h3>Add New Deck</h3>
-                <input type="text" id="deck-name-input" placeholder="Deck name (e.g., Math, Spanish)">
+                <input type="text" id="deck-name-input" placeholder="Deck name (e.g., Vocabulary, Formulas)">
                 <div class="color-picker">
                     <label>Choose a color:</label>
-                    <div class="color-options">
+                    <div class="color-options deck-colors">
                         <button class="color-option" data-color="#4CAF50" style="background: #4CAF50"></button>
                         <button class="color-option" data-color="#2196F3" style="background: #2196F3"></button>
                         <button class="color-option selected" data-color="#FF9800" style="background: #FF9800"></button>
@@ -173,13 +235,13 @@
             </div>
         </div>
 
-        <!-- Deck Options Modal -->
-        <div id="deck-options-modal" class="modal hidden">
+        <!-- Options Modal (for subjects, chapters, and decks) -->
+        <div id="options-modal" class="modal hidden">
             <div class="modal-content">
-                <h3>Deck Options</h3>
+                <h3 id="options-modal-title">Options</h3>
                 <div class="modal-buttons">
-                    <button id="rename-deck" class="secondary-button">Rename</button>
-                    <button id="delete-deck" class="delete-button">Delete</button>
+                    <button id="rename-item" class="secondary-button">Rename</button>
+                    <button id="delete-item" class="delete-button">Delete</button>
                     <button id="cancel-options" class="cancel-button">Cancel</button>
                 </div>
             </div>
