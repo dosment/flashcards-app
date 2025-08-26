@@ -1,0 +1,868 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* CSS Variables for Light/Dark Theme */
+:root {
+    --bg-color: #f5f5f5;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --text-light: #666666;
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --accent-color: #FF9800;
+    --danger-color: #F44336;
+    --border-color: #e0e0e0;
+    --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    --shadow-hover: 0 4px 20px rgba(0,0,0,0.15);
+    --border-radius: 12px;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --text-color: #ffffff;
+    --text-light: #cccccc;
+    --border-color: #444444;
+    --shadow: 0 2px 10px rgba(0,0,0,0.3);
+    --shadow-hover: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+/* Layout */
+#app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen {
+    display: none;
+    flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+}
+
+.app-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.header-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.icon-button:hover {
+    background: var(--border-color);
+}
+
+.icon-button:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Home Screen */
+.home-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.home-buttons {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.home-button {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 40px 50px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    min-width: 200px;
+    text-align: center;
+}
+
+.home-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary-color);
+}
+
+.home-button:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 3px;
+}
+
+.button-icon {
+    font-size: 36px;
+}
+
+.create-button {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.study-button {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+/* Screen Headers */
+.screen-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.screen-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    flex: 1;
+    text-align: center;
+}
+
+.back-button {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.back-button:hover {
+    background: var(--border-color);
+}
+
+.back-button:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Buttons */
+button {
+    font-family: inherit;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.add-button, .done-button, .save-button {
+    background: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    box-shadow: var(--shadow);
+}
+
+.add-button:hover, .done-button:hover, .save-button:hover {
+    background: #45a049;
+    transform: translateY(-1px);
+}
+
+.secondary-button {
+    background: var(--secondary-color);
+    color: white;
+    padding: 10px 20px;
+    box-shadow: var(--shadow);
+}
+
+.secondary-button:hover {
+    background: #1976D2;
+    transform: translateY(-1px);
+}
+
+.cancel-button {
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+}
+
+.cancel-button:hover {
+    background: var(--border-color);
+}
+
+.delete-button {
+    background: var(--danger-color);
+    color: white;
+    padding: 10px 20px;
+}
+
+.delete-button:hover {
+    background: #d32f2f;
+    transform: translateY(-1px);
+}
+
+/* Deck List */
+.deck-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.deck-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.deck-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary-color);
+}
+
+.deck-card:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.deck-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.deck-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.deck-options {
+    background: none;
+    border: none;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.deck-options:hover {
+    opacity: 1;
+    background: var(--border-color);
+}
+
+.deck-info {
+    color: var(--text-light);
+    font-size: 16px;
+}
+
+.deck-color {
+    width: 4px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+
+/* Create Cards Screen */
+.create-content {
+    flex: 1;
+}
+
+.quick-add-section, .manual-add-section {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
+}
+
+.quick-add-section h3, .manual-add-section h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#quick-add-text {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 16px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    margin-bottom: 15px;
+    resize: vertical;
+}
+
+#quick-add-text:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    border-color: var(--primary-color);
+}
+
+.card-input-row {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.card-input:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    border-color: var(--primary-color);
+}
+
+.add-card-button {
+    background: var(--primary-color);
+    color: white;
+    padding: 12px 20px;
+    white-space: nowrap;
+}
+
+.add-card-button:hover {
+    background: #45a049;
+}
+
+/* Cards List */
+.cards-list {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--shadow);
+}
+
+.cards-list h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.card-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: var(--bg-color);
+    gap: 15px;
+}
+
+.card-content {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+}
+
+.card-side {
+    flex: 1;
+}
+
+.card-side-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.card-side-text {
+    font-size: 16px;
+}
+
+.delete-card {
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.delete-card:hover {
+    background: #d32f2f;
+}
+
+/* Study Screen */
+.study-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.study-info {
+    flex: 1;
+    text-align: center;
+}
+
+.study-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.study-progress {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+}
+
+.progress-bar {
+    width: 200px;
+    height: 8px;
+    background: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.shuffle-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.shuffle-toggle input {
+    width: 18px;
+    height: 18px;
+}
+
+/* Study Content */
+.study-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.flashcard {
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    perspective: 1000px;
+    margin: 0 auto;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    background: var(--card-bg);
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.flashcard-back {
+    transform: rotateY(180deg);
+}
+
+.card-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.card-text {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* Study Controls */
+.study-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.flip-button {
+    background: var(--secondary-color);
+    color: white;
+    font-size: 20px;
+    padding: 15px 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.flip-button:hover {
+    background: #1976D2;
+    transform: translateY(-1px);
+}
+
+.answer-buttons {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.answer-buttons.hidden {
+    display: none;
+}
+
+.try-again-button, .got-it-button {
+    font-size: 18px;
+    padding: 15px 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    min-width: 140px;
+}
+
+.try-again-button {
+    background: var(--accent-color);
+    color: white;
+}
+
+.try-again-button:hover {
+    background: #f57c00;
+    transform: translateY(-1px);
+}
+
+.got-it-button {
+    background: var(--primary-color);
+    color: white;
+}
+
+.got-it-button:hover {
+    background: #45a049;
+    transform: translateY(-1px);
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: var(--shadow-hover);
+}
+
+.modal-content h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#deck-name-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+#deck-name-input:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    border-color: var(--primary-color);
+}
+
+.color-picker {
+    margin-bottom: 25px;
+}
+
+.color-picker label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.color-options {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.selected {
+    border-color: var(--text-color);
+    transform: scale(1.1);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .screen {
+        padding: 15px;
+    }
+    
+    .home-buttons {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    
+    .home-button {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .screen-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .screen-header h2 {
+        order: -1;
+    }
+    
+    .deck-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-input-row {
+        flex-direction: column;
+    }
+    
+    .card-input {
+        min-width: unset;
+    }
+    
+    .card-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .study-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .flashcard {
+        height: 300px;
+    }
+    
+    .answer-buttons {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+    
+    .try-again-button, .got-it-button {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .modal-content {
+        margin: 20px;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-title {
+        font-size: 20px;
+    }
+    
+    .header {
+        padding: 10px 15px;
+    }
+    
+    .screen {
+        padding: 10px;
+    }
+    
+    .flashcard {
+        height: 250px;
+    }
+    
+    .card-text {
+        font-size: 18px;
+    }
+}
+
+/* Focus styles for accessibility */
+button:focus, input:focus, textarea:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Ensure good contrast in dark mode */
+[data-theme="dark"] .card-input,
+[data-theme="dark"] #quick-add-text,
+[data-theme="dark"] #deck-name-input {
+    background: var(--bg-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.screen.active {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+}
+
+.empty-state h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    font-size: 16px;
+}

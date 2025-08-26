@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Flashcards</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 
+    ========================================
+    HOW TO USE THIS FLASHCARD APP
+    ========================================
+    
+    1. GETTING STARTED:
+       - When you first open the app, you'll see sample "Animals" cards
+       - Click "Create Cards" to make new decks and cards
+       - Click "Study Cards" to practice with your flashcards
+    
+    2. MAKING CARDS:
+       - Click "Create Cards" → "Add New Deck"
+       - Give your deck a name (like "Math" or "Spanish")
+       - Add cards by typing the front (question) and back (answer)
+       - Press Enter or click "Add Card" to save each card
+       - Click "Done" when finished
+    
+    3. STUDYING:
+       - Click "Study Cards" and pick a deck
+       - Read the front of the card, then click "Flip" to see the answer
+       - Click "Got it!" if you knew it, or "Try again" if you didn't
+       - Use keyboard: Space = flip, Right arrow = got it, Left arrow = try again
+    
+    4. MANAGING YOUR CARDS:
+       - Click the gear icon to rename or delete decks
+       - In create mode, click the X next to any card to delete it
+       - Use "Export Data" to save all your cards to a file
+       - Use "Import Data" to load cards from a file
+    
+    5. TIPS:
+       - Turn on "Shuffle" to mix up the order of cards
+       - The app saves everything automatically
+       - Works great on tablets and computers
+    -->
+
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="app-title">My Flashcards</h1>
+            <div class="header-controls">
+                <button id="theme-toggle" class="icon-button" title="Toggle dark mode">🌙</button>
+                <button id="import-button" class="icon-button" title="Import data">📁</button>
+                <button id="export-button" class="icon-button" title="Export data">💾</button>
+            </div>
+        </header>
+
+        <!-- Home Screen -->
+        <div id="home-screen" class="screen active">
+            <div class="home-content">
+                <div class="home-buttons">
+                    <button id="create-cards-btn" class="home-button create-button">
+                        <span class="button-icon">✏️</span>
+                        <span class="button-text">Create Cards</span>
+                    </button>
+                    <button id="study-cards-btn" class="home-button study-button">
+                        <span class="button-icon">📚</span>
+                        <span class="button-text">Study Cards</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deck List Screen -->
+        <div id="deck-list-screen" class="screen">
+            <div class="screen-header">
+                <button id="back-to-home" class="back-button">← Back</button>
+                <h2 id="deck-list-title">Choose a Deck</h2>
+                <button id="add-deck-btn" class="add-button">+ Add Deck</button>
+            </div>
+            <div id="deck-list" class="deck-list"></div>
+        </div>
+
+        <!-- Create/Edit Cards Screen -->
+        <div id="create-cards-screen" class="screen">
+            <div class="screen-header">
+                <button id="back-to-decks-create" class="back-button">← Back</button>
+                <h2 id="create-cards-title">Create Cards</h2>
+                <button id="done-creating" class="done-button">Done</button>
+            </div>
+            
+            <div class="create-content">
+                <div class="quick-add-section">
+                    <h3>Quick Add (Optional)</h3>
+                    <textarea id="quick-add-text" placeholder="Paste lines like: Cat | A small domesticated animal" rows="3"></textarea>
+                    <button id="quick-add-btn" class="secondary-button">Add These Cards</button>
+                </div>
+                
+                <div class="manual-add-section">
+                    <h3>Add Cards One by One</h3>
+                    <div class="card-input-row">
+                        <input type="text" id="card-front" placeholder="Front of card (question)" class="card-input">
+                        <input type="text" id="card-back" placeholder="Back of card (answer)" class="card-input">
+                        <button id="add-card-btn" class="add-card-button">Add Card</button>
+                    </div>
+                </div>
+                
+                <div id="cards-list" class="cards-list"></div>
+            </div>
+        </div>
+
+        <!-- Study Screen -->
+        <div id="study-screen" class="screen">
+            <div class="study-header">
+                <button id="back-to-decks-study" class="back-button">← Back</button>
+                <div class="study-info">
+                    <h2 id="study-deck-name">Deck Name</h2>
+                    <div class="study-progress">
+                        <span id="progress-text">1 of 10</span>
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+                <label class="shuffle-toggle">
+                    <input type="checkbox" id="shuffle-checkbox">
+                    <span>Shuffle</span>
+                </label>
+            </div>
+            
+            <div class="study-content">
+                <div id="flashcard" class="flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <div class="card-label">Front</div>
+                            <div id="card-front-text" class="card-text"></div>
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="card-label">Back</div>
+                            <div id="card-back-text" class="card-text"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="study-controls">
+                    <button id="flip-card" class="flip-button">Flip Card</button>
+                    <div id="answer-buttons" class="answer-buttons hidden">
+                        <button id="try-again" class="try-again-button">Try Again</button>
+                        <button id="got-it" class="got-it-button">Got It!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Deck Modal -->
+        <div id="add-deck-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Add New Deck</h3>
+                <input type="text" id="deck-name-input" placeholder="Deck name (e.g., Math, Spanish)">
+                <div class="color-picker">
+                    <label>Choose a color:</label>
+                    <div class="color-options">
+                        <button class="color-option" data-color="#4CAF50" style="background: #4CAF50"></button>
+                        <button class="color-option" data-color="#2196F3" style="background: #2196F3"></button>
+                        <button class="color-option selected" data-color="#FF9800" style="background: #FF9800"></button>
+                        <button class="color-option" data-color="#9C27B0" style="background: #9C27B0"></button>
+                        <button class="color-option" data-color="#F44336" style="background: #F44336"></button>
+                        <button class="color-option" data-color="#607D8B" style="background: #607D8B"></button>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button id="cancel-deck" class="cancel-button">Cancel</button>
+                    <button id="save-deck" class="save-button">Save Deck</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deck Options Modal -->
+        <div id="deck-options-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Deck Options</h3>
+                <div class="modal-buttons">
+                    <button id="rename-deck" class="secondary-button">Rename</button>
+                    <button id="delete-deck" class="delete-button">Delete</button>
+                    <button id="cancel-options" class="cancel-button">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- File input for import -->
+        <input type="file" id="file-input" accept=".json" style="display: none;">
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
