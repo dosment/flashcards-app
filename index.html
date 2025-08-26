@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Flashcards</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- No external dependencies needed -->
 </head>
 <body>
     <!-- 
@@ -46,7 +47,7 @@
         <!-- Header -->
         <header class="header">
             <h1 class="app-title">My Flashcards</h1>
-            <div class="header-bottom">
+            <div class="header-controls">
                 <div class="user-switcher">
                     <label>User:</label>
                     <select id="user-select">
@@ -54,24 +55,21 @@
                         <option value="tucker">Tucker</option>
                     </select>
                 </div>
-                <div class="header-controls">
-                    <button id="theme-toggle" class="icon-button" title="Toggle dark mode">🌙</button>
-                    <button id="info-button" class="icon-button" title="How are my cards saved?">ℹ️</button>
-                </div>
+                <button id="theme-toggle" class="icon-button" title="Toggle dark mode">🌙</button>
             </div>
         </header>
 
         <!-- Home Screen -->
         <div id="home-screen" class="screen active">
             <div class="home-content">
+                <div class="home-welcome">
+                    <h2>📚 Ready to Study?</h2>
+                    <p>Choose a subject and start practicing your vocabulary!</p>
+                </div>
                 <div class="home-buttons">
-                    <button id="create-cards-btn" class="home-button create-button">
-                        <span class="button-icon">✏️</span>
-                        <span class="button-text">Create Cards</span>
-                    </button>
                     <button id="study-cards-btn" class="home-button study-button">
                         <span class="button-icon">📚</span>
-                        <span class="button-text">Study Cards</span>
+                        <span class="button-text">Start Studying</span>
                     </button>
                 </div>
             </div>
@@ -82,7 +80,6 @@
             <div class="screen-header">
                 <button id="back-to-home-subjects" class="back-button">← Back</button>
                 <h2 id="subject-list-title">Choose a Subject</h2>
-                <button id="add-subject-btn" class="add-button">+ Add Subject</button>
             </div>
             <div id="subject-list" class="subject-list"></div>
         </div>
@@ -92,7 +89,6 @@
             <div class="screen-header">
                 <button id="back-to-subjects" class="back-button">← Back</button>
                 <h2 id="chapter-list-title">Choose a Chapter</h2>
-                <button id="add-chapter-btn" class="add-button">+ Add Chapter</button>
             </div>
             <div id="chapter-list" class="chapter-list"></div>
         </div>
@@ -102,38 +98,10 @@
             <div class="screen-header">
                 <button id="back-to-chapters" class="back-button">← Back</button>
                 <h2 id="deck-list-title">Choose a Deck</h2>
-                <button id="add-deck-btn" class="add-button">+ Add Deck</button>
             </div>
             <div id="deck-list" class="deck-list"></div>
         </div>
 
-        <!-- Create/Edit Cards Screen -->
-        <div id="create-cards-screen" class="screen">
-            <div class="screen-header">
-                <button id="back-from-create" class="back-button">← Back</button>
-                <h2 id="create-cards-title">Create Cards</h2>
-                <button id="done-creating" class="done-button">Done</button>
-            </div>
-            
-            <div class="create-content">
-                <div class="quick-add-section">
-                    <h3>Quick Add (Optional)</h3>
-                    <textarea id="quick-add-text" placeholder="Paste lines like: Cat | A small domesticated animal" rows="3"></textarea>
-                    <button id="quick-add-btn" class="secondary-button">Add These Cards</button>
-                </div>
-                
-                <div class="manual-add-section">
-                    <h3>Add Cards One by One</h3>
-                    <div class="card-input-row">
-                        <input type="text" id="card-front" placeholder="Front of card (question)" class="card-input">
-                        <input type="text" id="card-back" placeholder="Back of card (answer)" class="card-input">
-                        <button id="add-card-btn" class="add-card-button">Add Card</button>
-                    </div>
-                </div>
-                
-                <div id="cards-list" class="cards-list"></div>
-            </div>
-        </div>
 
         <!-- Study Screen -->
         <div id="study-screen" class="screen">
@@ -178,118 +146,7 @@
             </div>
         </div>
 
-        <!-- Add Subject Modal -->
-        <div id="add-subject-modal" class="modal hidden">
-            <div class="modal-content">
-                <h3>Add New Subject</h3>
-                <input type="text" id="subject-name-input" placeholder="Subject name (e.g., Math, Science, History)">
-                <div class="color-picker">
-                    <label>Choose a color:</label>
-                    <div class="color-options subject-colors">
-                        <button class="color-option" data-color="#4CAF50" style="background: #4CAF50"></button>
-                        <button class="color-option" data-color="#2196F3" style="background: #2196F3"></button>
-                        <button class="color-option selected" data-color="#FF9800" style="background: #FF9800"></button>
-                        <button class="color-option" data-color="#9C27B0" style="background: #9C27B0"></button>
-                        <button class="color-option" data-color="#F44336" style="background: #F44336"></button>
-                        <button class="color-option" data-color="#607D8B" style="background: #607D8B"></button>
-                    </div>
-                </div>
-                <div class="modal-buttons">
-                    <button id="cancel-subject" class="cancel-button">Cancel</button>
-                    <button id="save-subject" class="save-button">Save Subject</button>
-                </div>
-            </div>
-        </div>
 
-        <!-- Add Chapter Modal -->
-        <div id="add-chapter-modal" class="modal hidden">
-            <div class="modal-content">
-                <h3>Add New Chapter</h3>
-                <input type="text" id="chapter-name-input" placeholder="Chapter name (e.g., Chapter 1, Algebra, Vocabulary)">
-                <div class="modal-buttons">
-                    <button id="cancel-chapter" class="cancel-button">Cancel</button>
-                    <button id="save-chapter" class="save-button">Save Chapter</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Add Deck Modal -->
-        <div id="add-deck-modal" class="modal hidden">
-            <div class="modal-content">
-                <h3>Add New Deck</h3>
-                <input type="text" id="deck-name-input" placeholder="Deck name (e.g., Vocabulary, Formulas)">
-                <div class="color-picker">
-                    <label>Choose a color:</label>
-                    <div class="color-options deck-colors">
-                        <button class="color-option" data-color="#4CAF50" style="background: #4CAF50"></button>
-                        <button class="color-option" data-color="#2196F3" style="background: #2196F3"></button>
-                        <button class="color-option selected" data-color="#FF9800" style="background: #FF9800"></button>
-                        <button class="color-option" data-color="#9C27B0" style="background: #9C27B0"></button>
-                        <button class="color-option" data-color="#F44336" style="background: #F44336"></button>
-                        <button class="color-option" data-color="#607D8B" style="background: #607D8B"></button>
-                    </div>
-                </div>
-                <div class="modal-buttons">
-                    <button id="cancel-deck" class="cancel-button">Cancel</button>
-                    <button id="save-deck" class="save-button">Save Deck</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Options Modal (for subjects, chapters, and decks) -->
-        <div id="options-modal" class="modal hidden">
-            <div class="modal-content">
-                <h3 id="options-modal-title">Options</h3>
-                <div class="modal-buttons">
-                    <button id="rename-item" class="secondary-button">Rename</button>
-                    <button id="delete-item" class="delete-button">Delete</button>
-                    <button id="cancel-options" class="cancel-button">Cancel</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Info Modal -->
-        <div id="info-modal" class="modal hidden">
-            <div class="modal-content info-modal-content">
-                <h3>📚 How Your Flashcards Are Saved</h3>
-                <div class="info-content">
-                    <div class="info-item">
-                        <span class="info-icon">💾</span>
-                        <div class="info-text">
-                            <h4>Automatic Saving</h4>
-                            <p>Your flashcards save automatically! No need to click save buttons.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="info-item">
-                        <span class="info-icon">👤</span>
-                        <div class="info-text">
-                            <h4>Your Own Cards</h4>
-                            <p>Vance and Tucker each have their own separate flashcard collections.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="info-item">
-                        <span class="info-icon">💻</span>
-                        <div class="info-text">
-                            <h4>On This Device</h4>
-                            <p>Your cards are saved on this computer/tablet. Use the same device to keep your cards.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="info-item">
-                        <span class="info-icon">🔒</span>
-                        <div class="info-text">
-                            <h4>Safe & Private</h4>
-                            <p>Your flashcards stay on your device and won't get lost when you close the app.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-buttons">
-                    <button id="close-info" class="save-button">Got It!</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script src="app.js"></script>

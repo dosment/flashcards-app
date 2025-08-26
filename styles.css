@@ -87,32 +87,27 @@ body {
     align-items: center;
     gap: 8px;
     font-size: 14px;
-    order: 2;
-    flex-shrink: 0;
 }
 
 .user-switcher label {
     color: var(--text-light);
     font-weight: 500;
-    display: none;
 }
 
 .user-switcher select {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     color: var(--text-color);
-    padding: 8px 12px;
-    border-radius: 8px;
+    padding: 6px 12px;
+    border-radius: 6px;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
-    min-width: 80px;
 }
 
 .user-switcher select:hover {
     border-color: var(--primary-color);
-    background: var(--border-color);
 }
 
 .user-switcher select:focus {
@@ -121,27 +116,47 @@ body {
     box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
 }
 
+
 .header-controls {
     display: flex;
-    gap: 8px;
-    order: 3;
-    flex-shrink: 0;
+    align-items: center;
+    gap: 12px;
 }
 
-/* Mobile-first responsive design */
+/* Home Welcome Section */
+.home-welcome {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.home-welcome h2 {
+    font-size: 32px;
+    margin-bottom: 16px;
+    color: var(--text-color);
+}
+
+.home-welcome p {
+    font-size: 18px;
+    color: var(--text-light);
+    margin: 0;
+}
+
 @media (max-width: 480px) {
     .header {
         padding: 10px 12px;
+        flex-wrap: wrap;
         gap: 8px;
     }
     
     .app-title {
         font-size: 18px;
-        flex: 1;
-        min-width: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        order: 1;
+    }
+    
+    .header-controls {
+        order: 2;
+        gap: 8px;
+        flex-wrap: wrap;
     }
     
     .user-switcher {
@@ -149,18 +164,21 @@ body {
     }
     
     .user-switcher select {
-        padding: 6px 10px;
+        padding: 4px 8px;
         font-size: 13px;
-        min-width: 70px;
-    }
-    
-    .header-controls {
-        gap: 6px;
     }
     
     .icon-button {
-        font-size: 18px;
+        font-size: 16px;
         padding: 6px;
+    }
+    
+    .home-welcome h2 {
+        font-size: 24px;
+    }
+    
+    .home-welcome p {
+        font-size: 16px;
     }
 }
 
