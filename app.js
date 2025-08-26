@@ -240,6 +240,29 @@ class FlashcardApp {
                             ]
                         }
                     ]
+                },
+                {
+                    id: this.generateId(),
+                    name: 'Chapter 3 Vocabulary',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Measurement Terms',
+                            color: '#9C27B0',
+                            cards: [
+                                {
+                                    id: this.generateId(),
+                                    front: 'accuracy',
+                                    back: 'a description of how close a measurement is to an accepted value.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'credibility',
+                                    back: 'is the confidence that can be placed in the truth of scientific findings.'
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         };
