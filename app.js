@@ -40,12 +40,18 @@ class FlashcardApp {
         this.applyTheme();
         this.showScreen('home');
         
-        // Create vocabulary data if no data exists for each user
-        if (this.userData.vance.subjects.length === 0) {
+        // Create vocabulary data if no data exists for each user or if version is outdated
+        const DATA_VERSION = '2.0'; // Updated to force refresh with complete curriculum
+        
+        if (this.userData.vance.subjects.length === 0 || !this.userData.vance.dataVersion || this.userData.vance.dataVersion !== DATA_VERSION) {
             this.createVocabularyData('vance');
+            this.userData.vance.dataVersion = DATA_VERSION;
+            this.saveDataForUser('vance');
         }
-        if (this.userData.tucker.subjects.length === 0) {
+        if (this.userData.tucker.subjects.length === 0 || !this.userData.tucker.dataVersion || this.userData.tucker.dataVersion !== DATA_VERSION) {
             this.createVocabularyData('tucker');
+            this.userData.tucker.dataVersion = DATA_VERSION;
+            this.saveDataForUser('tucker');
         }
         
         this.updateTitle();
@@ -89,6 +95,14 @@ class FlashcardApp {
             localStorage.setItem('lastSelectedUser', this.currentUser);
         } catch (e) {
             console.error('Error saving data:', e);
+        }
+    }
+    
+    saveDataForUser(user) {
+        try {
+            localStorage.setItem(`flashcardData_${user}`, JSON.stringify(this.userData[user]));
+        } catch (e) {
+            console.error(`Error saving data for ${user}:`, e);
         }
     }
     
