@@ -263,7 +263,51 @@ class FlashcardApp {
                             name: 'Lesson 1.1: Solids, Liquids, and Gases',
                             color: '#E91E63',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'atom',
+                                    back: 'a small particle that is the building block of matter.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'molecule',
+                                    back: 'two or more atoms that are held together and that act as a unit.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'structure',
+                                    back: 'the way matter is arranged.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'shape',
+                                    back: 'an object\'s form'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'kinetic energy',
+                                    back: 'the energy an object has due to its motion.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'volume',
+                                    back: 'the amount of space a substance takes up.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'solid',
+                                    back: 'matter that has a definite shape and a definite volume.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'liquid',
+                                    back: 'matter with a definite volume but no definite shape.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'gas',
+                                    back: 'matter that has no definite volume and no definite shape.'
+                                }
                             ]
                         },
                         {
@@ -271,7 +315,31 @@ class FlashcardApp {
                             name: 'Lesson 1.2: Density',
                             color: '#E91E63',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'substance',
+                                    back: 'matter with a composition that is always the same.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'physical property',
+                                    back: 'a characteristic of matter that can be observed or measured without changing the identity of the matter.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'mass',
+                                    back: 'the amount of matter in an object.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'weight',
+                                    back: 'the gravitational pull on the mass of an object.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'density',
+                                    back: 'the mass per unit volume of a substance.'
+                                }
                             ]
                         },
                         {
@@ -279,7 +347,36 @@ class FlashcardApp {
                             name: 'Lesson 1.3: The Periodic Table',
                             color: '#E91E63',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'periodic table',
+                                    back: 'a chart of the elements arranged into rows and columns according to their physical and chemical properties.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'metal',
+                                    back: 'an element that is generally shiny and is easily pulled into wires or hammered into thin sheets.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'ductility',
+                                    back: 'the ability of a substance to be pulled into thin wires.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'malleability',
+                                    back: 'the ability of a substance to be hammered or rolled into sheets.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'nonmetal',
+                                    back: 'elements that have no metallic properties.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'metalloid',
+                                    back: 'an element that has physical and chemical properties of both metals and nonmetals.'
+                                }
                             ]
                         }
                     ]
