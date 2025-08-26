@@ -192,6 +192,54 @@ class FlashcardApp {
                             ]
                         }
                     ]
+                },
+                {
+                    id: this.generateId(),
+                    name: 'Chapter 2 Vocabulary',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Engineering Terms',
+                            color: '#FF9800',
+                            cards: [
+                                {
+                                    id: this.generateId(),
+                                    front: 'engineering',
+                                    back: 'the application of science and mathematics to solve problems.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'engineering design process',
+                                    back: 'a series of steps used to find solutions to specific problems.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'criteria',
+                                    back: 'are requirements or specifications for a solution to be successful.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'constraints',
+                                    back: 'limitations put on the design of a solution.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'brainstorming',
+                                    back: 'a problem-solving technique that involves individuals contributing ideas without the fear of being criticized.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'cost-benefit analysis',
+                                    back: 'a process of comparing the predicted benefits and costs of a solution.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'prototype',
+                                    back: 'is a model that is used to test a design.'
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         };
