@@ -284,12 +284,9 @@ class FlashcardApp {
             this.showSubjectList();
         });
         
-        document.getElementById('back-to-chapters').addEventListener('click', () => {
-            this.showChapterList();
-        });
         
         document.getElementById('back-from-study').addEventListener('click', () => {
-            this.showDeckList();
+            this.showChapterList();
         });
         
         // Study controls
@@ -367,14 +364,6 @@ class FlashcardApp {
         this.updateChapterList();
     }
     
-    showDeckList() {
-        if (!this.currentChapter) return;
-        
-        document.getElementById('deck-list-title').textContent = 
-            `${this.currentSubject.name} > ${this.currentChapter.name}`;
-        this.showScreen('deck-list');
-        this.updateDeckList();
-    }
     
     updateSubjectList() {
         const subjectList = document.getElementById('subject-list');
@@ -461,45 +450,16 @@ class FlashcardApp {
         });
     }
     
-    updateDeckList() {
-        const deckList = document.getElementById('deck-list');
-        
-        if (this.currentChapter.decks.length === 0) {
-            deckList.innerHTML = `
-                <div class="empty-state">
-                    <h3>No vocabulary decks available!</h3>
-                    <p>Vocabulary will be added soon.</p>
-                </div>
-            `;
-            return;
-        }
-        
-        deckList.innerHTML = this.currentChapter.decks.map(deck => `
-            <div class="deck-card" data-deck-id="${deck.id}" tabindex="0">
-                <div class="deck-color" style="background-color: ${deck.color}"></div>
-                <div class="deck-header">
-                    <h3 class="deck-name">${this.escapeHtml(deck.name)}</h3>
-                </div>
-                <div class="deck-info">
-                    ${deck.cards.length} vocabulary word${deck.cards.length !== 1 ? 's' : ''}
-                </div>
-            </div>
-        `).join('');
-        
-        // Add event listeners for deck cards
-        deckList.querySelectorAll('.deck-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                const deckId = card.dataset.deckId;
-                this.selectDeck(deckId);
-            });
-        });
-    }
     
     updateStudyScreen() {
         if (!this.currentDeck) return;
         
+        // Desktop - show full breadcrumbs
         document.getElementById('study-deck-name').textContent = 
             `${this.currentSubject.name} > ${this.currentChapter.name} > ${this.currentDeck.name}`;
+        
+        // Mobile - show just chapter name
+        document.getElementById('study-deck-name-mobile').textContent = this.currentChapter.name;
         document.getElementById('shuffle-checkbox').checked = this.getCurrentUserData().settings.shuffle;
         
         this.setupStudySession();
@@ -518,20 +478,20 @@ class FlashcardApp {
         this.currentChapter = this.currentSubject.chapters.find(chapter => chapter.id === chapterId);
         if (!this.currentChapter) return;
         
-        this.showDeckList();
+        // Go directly to study - get the first (and only) deck
+        if (this.currentChapter.decks.length > 0) {
+            this.currentDeck = this.currentChapter.decks[0];
+            if (this.currentDeck.cards.length === 0) {
+                alert('This chapter has no vocabulary words yet!');
+                return;
+            }
+            this.showScreen('study');
+            this.updateStudyScreen();
+        } else {
+            alert('This chapter has no vocabulary available yet!');
+        }
     }
     
-    selectDeck(deckId) {
-        this.currentDeck = this.currentChapter.decks.find(deck => deck.id === deckId);
-        if (!this.currentDeck) return;
-        
-        if (this.currentDeck.cards.length === 0) {
-            alert('This deck has no vocabulary words yet!');
-            return;
-        }
-        this.showScreen('study');
-        this.updateStudyScreen();
-    }
     
     // Study Mode
     setupStudySession() {
@@ -598,8 +558,8 @@ class FlashcardApp {
     
     finishStudySession() {
         const totalCards = this.currentDeck.cards.length;
-        alert(`Great job! You studied all ${totalCards} vocabulary words in "${this.currentDeck.name}".`);
-        this.showDeckList();
+        alert(`Great job! You studied all ${totalCards} vocabulary words in "${this.currentChapter.name}".`);
+        this.showChapterList();
     }
     
     shuffleArray(array) {

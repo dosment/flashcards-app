@@ -180,6 +180,35 @@ body {
     .home-welcome p {
         font-size: 16px;
     }
+    
+    /* Simplify study headers on mobile */
+    .study-info h2 {
+        font-size: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 200px;
+    }
+    
+    /* Hide breadcrumbs in mobile study view */
+    .study-deck-name-mobile {
+        display: block;
+    }
+    
+    .study-deck-name-desktop {
+        display: none;
+    }
+}
+
+/* Desktop - show full breadcrumbs */
+@media (min-width: 481px) {
+    .study-deck-name-mobile {
+        display: none;
+    }
+    
+    .study-deck-name-desktop {
+        display: block;
+    }
 }
 
 /* Better mobile layout for very small screens */
