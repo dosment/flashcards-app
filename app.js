@@ -391,7 +391,46 @@ class FlashcardApp {
                             name: 'Lesson 2.1: Pure Substances and Mixtures',
                             color: '#3F51B5',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'matter',
+                                    back: 'anything that has mass and takes up space'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'pure substance',
+                                    back: 'matter with a composition that is always the same.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'mixture',
+                                    back: 'two or more substances that are physically blended but do not combine chemically.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'physical property',
+                                    back: 'a characteristic of matter that can be observed or measured without changing the identity of the matter.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'heterogeneous mixture',
+                                    back: 'a mixture in which two or more pure substances are not evenly mixed.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'homogeneous mixture',
+                                    back: 'a mixture in which two or more pure substances are evenly mixed.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'solution',
+                                    back: 'another name for a homogeneous mixture.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'dissolve',
+                                    back: 'to form a solution by mixing evenly.'
+                                }
                             ]
                         },
                         {
