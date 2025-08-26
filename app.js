@@ -1053,7 +1053,41 @@ class FlashcardApp {
                             name: 'Lesson 8.1: Levels of Organization in Ecosystems',
                             color: '#FF5722',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'hierarchical organization',
+                                    back: 'a system of organization that begins with the simplest level and each level becomes more complex.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'species',
+                                    back: 'a group of organisms that have similar traits and are able to produce fertile offspring.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'organism',
+                                    back: 'anything that has or once had all the characteristics of life.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'population',
+                                    back: 'all the organisms of the same species that live in the same area at the same time.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'community',
+                                    back: 'two or more populations of different species that live together in the same area at the same time.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'ecosystem',
+                                    back: 'all the living things and nonliving things in a given area.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'biosphere',
+                                    back: 'all the parts of Earth where there is life.'
+                                }
                             ]
                         },
                         {
@@ -1061,7 +1095,26 @@ class FlashcardApp {
                             name: 'Lesson 8.2: Dependence On and Competition for Resources',
                             color: '#FF5722',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'biotic factor',
+                                    back: 'any living factor in an organism\'s environment.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'abiotic factor',
+                                    back: 'any nonliving factor in an organism\'s environment, such as soil, water, temperature, and light availability.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'limiting factor',
+                                    back: 'a factor that can limit the growth of a population.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'competition',
+                                    back: 'the demand for resources, such as food, water, and shelter, in short supply in an ecosystem.'
+                                }
                             ]
                         },
                         {
@@ -1069,7 +1122,41 @@ class FlashcardApp {
                             name: 'Lesson 8.3: Relationships Between Organisms',
                             color: '#FF5722',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'predator',
+                                    back: 'an organism that hunts and kills other organisms for food.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'prey',
+                                    back: 'the organisms hunted or eaten by a predator.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'competitive relationship',
+                                    back: 'a relationship involving one or more organisms that need the same resource at the same time.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'symbiosis',
+                                    back: 'a close, long-term relationship between two species that usually involves an exchange of food or energy.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'mutualism',
+                                    back: 'a symbiotic relationship in which both organisms benefit.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'parasitism',
+                                    back: 'a symbiotic relationship in which one organism benefits and the other is harmed.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'commensalism',
+                                    back: 'a symbiotic relationship that benefits one organism but does not harm or benefit the other.'
+                                }
                             ]
                         }
                     ]
@@ -1084,7 +1171,26 @@ class FlashcardApp {
                             name: 'Lesson 9.1: Cell Theory',
                             color: '#795548',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'cell',
+                                    back: 'the smallest unit of life.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'microscope',
+                                    back: 'an optical instrument using one or more lenses to make enlarged images of objects.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'theory',
+                                    back: 'an explanation of observations or events that is based on knowledge gained from many observations and investigations.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'cell theory',
+                                    back: 'the theory that states that all living things are made of one or more cells, the cell is the smallest unit of life, and all new cells come from preexisting cells.'
+                                }
                             ]
                         },
                         {
@@ -1092,7 +1198,41 @@ class FlashcardApp {
                             name: 'Lesson 9.2: Characteristics of Organisms',
                             color: '#795548',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'prokaryotic',
+                                    back: 'a cell that does not have a nucleus or other membrane-bound organelles.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'organelle',
+                                    back: 'membrane-surrounded component of a eukaryotic cell with a specialized function.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'eukaryotic',
+                                    back: 'a cell that has a nucleus and other membrane-bound organelles.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'unicellular',
+                                    back: 'a living thing that is made up of only one cell.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'multicellular',
+                                    back: 'a living thing that is made up of two or more cells.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'autotroph',
+                                    back: 'an organism that can produce its own food using light, water, carbon dioxide, or other chemicals.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'heterotroph',
+                                    back: 'an organism that eats plants or animals for energy and nutrients.'
+                                }
                             ]
                         },
                         {
@@ -1100,7 +1240,26 @@ class FlashcardApp {
                             name: 'Lesson 9.3: Variations in Populations',
                             color: '#795548',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'trait',
+                                    back: 'a distinguishing characteristic of an organism.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'inheritance',
+                                    back: 'the passing of traits from generation to generation.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'population',
+                                    back: 'all the organisms of the same species that live in the same area at the same time.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'variation',
+                                    back: 'a slight difference in an inherited trait among individual members of a species.'
+                                }
                             ]
                         }
                     ]
