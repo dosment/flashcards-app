@@ -132,7 +132,7 @@ class FlashcardApp {
             chapters: [
                 {
                     id: this.generateId(),
-                    name: 'Chapter 1 Vocabulary',
+                    name: 'Chapter 0 SEP, Lesson 1: Scientific Practices',
                     decks: [
                         {
                             id: this.generateId(),
@@ -195,7 +195,7 @@ class FlashcardApp {
                 },
                 {
                     id: this.generateId(),
-                    name: 'Chapter 2 Vocabulary',
+                    name: 'Chapter 0 SEP, Lesson 2: Engineer Practices',
                     decks: [
                         {
                             id: this.generateId(),
@@ -243,7 +243,7 @@ class FlashcardApp {
                 },
                 {
                     id: this.generateId(),
-                    name: 'Chapter 3 Vocabulary',
+                    name: 'Chapter 0 SEP, Lesson 3: Science and Society',
                     decks: [
                         {
                             id: this.generateId(),
