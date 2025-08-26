@@ -130,13 +130,14 @@ class FlashcardApp {
             name: '6th Grade Texas Science',
             color: '#4CAF50',
             chapters: [
+                // Chapter 0: Scientific and Engineering Practices
                 {
                     id: this.generateId(),
-                    name: 'Chapter 0 SEP, Lesson 1: Scientific Practices',
+                    name: 'Chapter 0: Scientific and Engineering Practices',
                     decks: [
                         {
                             id: this.generateId(),
-                            name: 'Scientific Method Terms',
+                            name: 'Lesson 0.1: Scientific Practices',
                             color: '#2196F3',
                             cards: [
                                 {
@@ -190,16 +191,10 @@ class FlashcardApp {
                                     back: 'a rule that describes a pattern in nature.'
                                 }
                             ]
-                        }
-                    ]
-                },
-                {
-                    id: this.generateId(),
-                    name: 'Chapter 0 SEP, Lesson 2: Engineer Practices',
-                    decks: [
+                        },
                         {
                             id: this.generateId(),
-                            name: 'Engineering Terms',
+                            name: 'Lesson 0.2: Engineer Practices',
                             color: '#FF9800',
                             cards: [
                                 {
@@ -238,16 +233,10 @@ class FlashcardApp {
                                     back: 'is a model that is used to test a design.'
                                 }
                             ]
-                        }
-                    ]
-                },
-                {
-                    id: this.generateId(),
-                    name: 'Chapter 0 SEP, Lesson 3: Science and Society',
-                    decks: [
+                        },
                         {
                             id: this.generateId(),
-                            name: 'Measurement Terms',
+                            name: 'Lesson 0.3: Science and Society',
                             color: '#9C27B0',
                             cards: [
                                 {
@@ -260,6 +249,261 @@ class FlashcardApp {
                                     front: 'credibility',
                                     back: 'is the confidence that can be placed in the truth of scientific findings.'
                                 }
+                            ]
+                        }
+                    ]
+                },
+                // Chapter 1: Classification of Matter
+                {
+                    id: this.generateId(),
+                    name: 'Chapter 1: Classification of Matter',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 1.1: Solids, Liquids, and Gases',
+                            color: '#E91E63',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 1.2: Density',
+                            color: '#E91E63',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 1.3: The Periodic Table',
+                            color: '#E91E63',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        }
+                    ]
+                },
+                // Chapter 2: Interactions of Matter
+                {
+                    id: this.generateId(),
+                    name: 'Chapter 2: Interactions of Matter',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 2.1: Pure Substances and Mixtures',
+                            color: '#3F51B5',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 2.2: Chemical Changes',
+                            color: '#3F51B5',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        }
+                    ]
+                },
+                // Chapter 3: Forces and Their Interactions
+                {
+                    id: this.generateId(),
+                    name: 'Chapter 3: Forces and Their Interactions',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 3.1: Identifying Forces',
+                            color: '#00BCD4',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 3.2: Balanced and Unbalanced Forces',
+                            color: '#00BCD4',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 3.3: Third Law of Motion',
+                            color: '#00BCD4',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        }
+                    ]
+                },
+                // Chapter 4: Conservation of Energy
+                {
+                    id: this.generateId(),
+                    name: 'Chapter 4: Conservation of Energy',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 4.1: Kinetic and Potential Energy',
+                            color: '#009688',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 4.2: Energy Transfer and Transformation',
+                            color: '#009688',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 4.3: Transferring Energy Through Waves',
+                            color: '#009688',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        }
+                    ]
+                },
+                // Chapter 5: The Sun-Earth-Moon System
+                {
+                    id: this.generateId(),
+                    name: 'Chapter 5: The Sun-Earth-Moon System',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 5.1: Earth\'s Revolution and Seasons',
+                            color: '#8BC34A',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 5.2: Ocean Tides',
+                            color: '#8BC34A',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        }
+                    ]
+                },
+                // Chapter 6: Earth's Structure
+                {
+                    id: this.generateId(),
+                    name: 'Chapter 6: Earth\'s Structure',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 6.1: Earth\'s Spheres',
+                            color: '#CDDC39',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 6.2: Earth\'s Layers',
+                            color: '#CDDC39',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 6.3: The Rock Cycle',
+                            color: '#CDDC39',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        }
+                    ]
+                },
+                // Chapter 7: Earth's Resources
+                {
+                    id: this.generateId(),
+                    name: 'Chapter 7: Earth\'s Resources',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 7.1: Resource Management and Conservation',
+                            color: '#FFC107',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 7.2: Global Impacts of Resource Management',
+                            color: '#FFC107',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        }
+                    ]
+                },
+                // Chapter 8: Living Systems and the Environment
+                {
+                    id: this.generateId(),
+                    name: 'Chapter 8: Living Systems and the Environment',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 8.1: Levels of Organization in Ecosystems',
+                            color: '#FF5722',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 8.2: Dependence On and Competition for Resources',
+                            color: '#FF5722',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 8.3: Relationships Between Organisms',
+                            color: '#FF5722',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        }
+                    ]
+                },
+                // Chapter 9: Organisms and Variations
+                {
+                    id: this.generateId(),
+                    name: 'Chapter 9: Organisms and Variations',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 9.1: Cell Theory',
+                            color: '#795548',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 9.2: Characteristics of Organisms',
+                            color: '#795548',
+                            cards: [
+                                // Add vocabulary when provided
+                            ]
+                        },
+                        {
+                            id: this.generateId(),
+                            name: 'Lesson 9.3: Variations in Populations',
+                            color: '#795548',
+                            cards: [
+                                // Add vocabulary when provided
                             ]
                         }
                     ]
@@ -309,6 +553,10 @@ class FlashcardApp {
         
         
         document.getElementById('back-from-study').addEventListener('click', () => {
+            this.showLessonList();
+        });
+        
+        document.getElementById('back-to-chapters').addEventListener('click', () => {
             this.showChapterList();
         });
         
@@ -382,9 +630,18 @@ class FlashcardApp {
         if (!this.currentSubject) return;
         
         document.getElementById('chapter-list-title').textContent = 
-            `${this.currentSubject.name} - Study a Chapter`;
+            `${this.currentSubject.name} - Choose a Chapter`;
         this.showScreen('chapter-list');
         this.updateChapterList();
+    }
+    
+    showLessonList() {
+        if (!this.currentChapter) return;
+        
+        document.getElementById('lesson-list-title').textContent = 
+            `${this.currentChapter.name} - Choose a Lesson`;
+        this.showScreen('lesson-list');
+        this.updateLessonList();
     }
     
     
@@ -473,6 +730,45 @@ class FlashcardApp {
         });
     }
     
+    updateLessonList() {
+        const lessonList = document.getElementById('lesson-list');
+        
+        if (this.currentChapter.decks.length === 0) {
+            lessonList.innerHTML = `
+                <div class="empty-state">
+                    <h3>No lessons available!</h3>
+                    <p>Vocabulary lessons will be added soon.</p>
+                </div>
+            `;
+            return;
+        }
+        
+        lessonList.innerHTML = this.currentChapter.decks.map(deck => {
+            const totalCards = deck.cards.length;
+            
+            return `
+                <div class="deck-card lesson-card" data-lesson-id="${deck.id}" tabindex="0">
+                    <div class="deck-color" style="background-color: ${deck.color};"></div>
+                    <div class="deck-header">
+                        <h3 class="deck-name">${this.escapeHtml(deck.name)}</h3>
+                    </div>
+                    <div class="deck-info">
+                        ${totalCards} vocabulary word${totalCards !== 1 ? 's' : ''}
+                        ${totalCards === 0 ? ' (Coming Soon)' : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        // Add event listeners for lesson cards
+        lessonList.querySelectorAll('.lesson-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                const lessonId = card.dataset.lessonId;
+                this.selectLesson(lessonId);
+            });
+        });
+    }
+    
     
     updateStudyScreen() {
         if (!this.currentDeck) return;
@@ -501,18 +797,20 @@ class FlashcardApp {
         this.currentChapter = this.currentSubject.chapters.find(chapter => chapter.id === chapterId);
         if (!this.currentChapter) return;
         
-        // Go directly to study - get the first (and only) deck
-        if (this.currentChapter.decks.length > 0) {
-            this.currentDeck = this.currentChapter.decks[0];
-            if (this.currentDeck.cards.length === 0) {
-                alert('This chapter has no vocabulary words yet!');
-                return;
-            }
-            this.showScreen('study');
-            this.updateStudyScreen();
-        } else {
-            alert('This chapter has no vocabulary available yet!');
+        this.showLessonList();
+    }
+    
+    selectLesson(lessonId) {
+        this.currentDeck = this.currentChapter.decks.find(deck => deck.id === lessonId);
+        if (!this.currentDeck) return;
+        
+        if (this.currentDeck.cards.length === 0) {
+            alert('This lesson has no vocabulary words yet!');
+            return;
         }
+        
+        this.showScreen('study');
+        this.updateStudyScreen();
     }
     
     
