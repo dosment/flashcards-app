@@ -236,12 +236,8 @@ class FlashcardApp {
             this.toggleTheme();
         });
         
-        document.getElementById('export-button').addEventListener('click', () => {
-            this.exportData();
-        });
-        
-        document.getElementById('import-button').addEventListener('click', () => {
-            this.importData();
+        document.getElementById('info-button').addEventListener('click', () => {
+            this.showInfoModal();
         });
         
         // Navigation
@@ -328,9 +324,9 @@ class FlashcardApp {
             }
         });
         
-        // File import
-        document.getElementById('file-input').addEventListener('change', (e) => {
-            this.handleFileImport(e);
+        // Info modal
+        document.getElementById('close-info').addEventListener('click', () => {
+            this.hideModal('info-modal');
         });
     }
     
@@ -415,6 +411,12 @@ class FlashcardApp {
         document.getElementById('options-modal').addEventListener('click', (e) => {
             if (e.target.classList.contains('modal')) {
                 this.hideModal('options-modal');
+            }
+        });
+        
+        document.getElementById('info-modal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                this.hideModal('info-modal');
             }
         });
     }
@@ -1049,79 +1051,9 @@ class FlashcardApp {
         }
     }
     
-    // Import/Export
-    exportData() {
-        try {
-            const dataStr = JSON.stringify(this.getCurrentUserData(), null, 2);
-            const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${this.currentUser}-flashcards-backup-${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            alert('Your flashcards have been exported! The file was downloaded.');
-        } catch (e) {
-            console.error('Export error:', e);
-            alert('Error exporting data. Please try again.');
-        }
-    }
-    
-    importData() {
-        document.getElementById('file-input').click();
-    }
-    
-    handleFileImport(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            try {
-                const importedData = JSON.parse(e.target.result);
-                
-                // Handle both old and new formats
-                if (importedData.decks && !importedData.subjects) {
-                    // Old format - migrate it
-                    this.userData[this.currentUser] = this.migrateOldDataStructure(importedData);
-                    this.saveData();
-                    alert('Your flashcards have been imported and converted to the new format!');
-                } else if (importedData.subjects && Array.isArray(importedData.subjects)) {
-                    // New format
-                    if (confirm(`This will replace all of ${this.currentUser}'s current flashcards. Are you sure?`)) {
-                        this.userData[this.currentUser] = importedData;
-                        
-                        // Ensure settings exist
-                        if (!this.userData[this.currentUser].settings) {
-                            this.userData[this.currentUser].settings = { darkMode: false, shuffle: true };
-                        }
-                        
-                        this.saveData();
-                        this.applyTheme();
-                        
-                        if (this.currentScreen === 'subject-list') {
-                            this.updateSubjectList();
-                        }
-                        
-                        alert(`${this.currentUser}'s flashcards have been imported successfully!`);
-                    }
-                } else {
-                    throw new Error('Invalid file format');
-                }
-            } catch (e) {
-                console.error('Import error:', e);
-                alert('Error importing file. Please make sure it\'s a valid flashcard backup file.');
-            }
-            
-            // Clear the file input
-            event.target.value = '';
-        };
-        
-        reader.readAsText(file);
+    // Info Modal
+    showInfoModal() {
+        this.showModal('info-modal');
     }
     
     // Modal Management

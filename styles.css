@@ -947,6 +947,80 @@ button:focus, input:focus, textarea:focus {
     border-color: var(--border-color);
 }
 
+/* Info Modal */
+.info-modal-content {
+    max-width: 500px;
+    text-align: left;
+}
+
+.info-modal-content h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    background: var(--bg-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.info-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.info-text h4 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.info-text p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.4;
+}
+
+/* Mobile responsiveness for info modal */
+@media (max-width: 480px) {
+    .info-modal-content {
+        max-width: 90vw;
+        margin: 20px;
+    }
+    
+    .info-item {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .info-icon {
+        font-size: 20px;
+    }
+    
+    .info-text h4 {
+        font-size: 15px;
+    }
+    
+    .info-text p {
+        font-size: 13px;
+    }
+}
+
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }

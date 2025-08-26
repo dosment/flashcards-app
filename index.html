@@ -56,8 +56,7 @@
                 </div>
                 <div class="header-controls">
                     <button id="theme-toggle" class="icon-button" title="Toggle dark mode">🌙</button>
-                    <button id="import-button" class="icon-button" title="Import data">📁</button>
-                    <button id="export-button" class="icon-button" title="Export data">💾</button>
+                    <button id="info-button" class="icon-button" title="How are my cards saved?">ℹ️</button>
                 </div>
             </div>
         </header>
@@ -249,8 +248,48 @@
             </div>
         </div>
 
-        <!-- File input for import -->
-        <input type="file" id="file-input" accept=".json" style="display: none;">
+        <!-- Info Modal -->
+        <div id="info-modal" class="modal hidden">
+            <div class="modal-content info-modal-content">
+                <h3>📚 How Your Flashcards Are Saved</h3>
+                <div class="info-content">
+                    <div class="info-item">
+                        <span class="info-icon">💾</span>
+                        <div class="info-text">
+                            <h4>Automatic Saving</h4>
+                            <p>Your flashcards save automatically! No need to click save buttons.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-icon">👤</span>
+                        <div class="info-text">
+                            <h4>Your Own Cards</h4>
+                            <p>Vance and Tucker each have their own separate flashcard collections.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-icon">💻</span>
+                        <div class="info-text">
+                            <h4>On This Device</h4>
+                            <p>Your cards are saved on this computer/tablet. Use the same device to keep your cards.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-icon">🔒</span>
+                        <div class="info-text">
+                            <h4>Safe & Private</h4>
+                            <p>Your flashcards stay on your device and won't get lost when you close the app.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button id="close-info" class="save-button">Got It!</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="app.js"></script>
