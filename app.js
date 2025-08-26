@@ -937,7 +937,56 @@ class FlashcardApp {
                             name: 'Lesson 7.1: Resource Management and Conservation',
                             color: '#FFC107',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'natural resource',
+                                    back: 'part of the environment that supplies material useful or necessary for the survival of living things.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'energy resource',
+                                    back: 'fuel used for heating or to generate usable power.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'nonrenewable resource',
+                                    back: 'a resource that is used faster than it can be replaced by natural processes.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'renewable resource',
+                                    back: 'a resource that can be replenished by natural processes at least as quickly as it is used.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'conservation',
+                                    back: 'the careful use of Earth\'s materials to prevent or reduce damage to the environment and extend the lifetime of resources.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'technology',
+                                    back: 'the practical use of scientific knowledge, especially for industrial or commercial use.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'efficiency',
+                                    back: 'the ability to do something or produce something without wasting materials, time, or energy.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'soil',
+                                    back: 'a mixture of weathered rock, rock fragments, decayed organic matter, water, and air.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'air',
+                                    back: 'the mixture of invisible, odorless, tasteless gases that surrounds Earth.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'water',
+                                    back: 'a transparent, tasteless, odorless, colorless substance composed of the chemical elements hydrogen and oxygen.'
+                                }
                             ]
                         },
                         {
@@ -945,7 +994,51 @@ class FlashcardApp {
                             name: 'Lesson 7.2: Global Impacts of Resource Management',
                             color: '#FFC107',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'natural resource',
+                                    back: 'part of the environment that supplies material useful or necessary for the survival of living things.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'poverty',
+                                    back: 'when a community lacks the resources and requirements for a minimum standard of living'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'energy poverty',
+                                    back: 'the lack of access to modern energy services and products.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'renewable resource',
+                                    back: 'a resource that can be replenished by natural processes at least as quickly as it is used.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'nutrient',
+                                    back: 'a part of food used by the body to grow and survive.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'malnutrition',
+                                    back: 'a lack of proper nutrition that negatively affects growth and health.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'sustainability',
+                                    back: 'meeting human needs in ways that ensure future generations will also be able to meet their needs.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'air pollution',
+                                    back: 'the contamination of air by harmful substances including gases and smoke.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'water pollution',
+                                    back: 'any contamination of water with chemicals or other hazardous substances that are detrimental to human, animal, or plant health.'
+                                }
                             ]
                         }
                     ]
