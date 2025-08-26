@@ -693,7 +693,51 @@ class FlashcardApp {
                             name: 'Lesson 5.1: Earth\'s Revolution and Seasons',
                             color: '#8BC34A',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'orbit',
+                                    back: 'the path an object follows as it moves around another object.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'revolution',
+                                    back: 'the orbit of one object around another object.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'gravity',
+                                    back: 'an attractive force that exists between all objects that have mass.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'rotation',
+                                    back: 'the spin of an object around its axis.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'rotation axis',
+                                    back: 'the line around which an object rotates.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'intensity',
+                                    back: 'the amount of energy that passes through a square meter of space in one second.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'equator',
+                                    back: 'the imaginary line that divides Earth into the Northern and Southern Hemispheres'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'solstice',
+                                    back: 'when Earth\'s rotation axis is tilted directly toward or away from the Sun.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'equinox',
+                                    back: 'when Earth\'s rotation axis is tilted neither toward nor away from the Sun.'
+                                }
                             ]
                         },
                         {
@@ -701,7 +745,41 @@ class FlashcardApp {
                             name: 'Lesson 5.2: Ocean Tides',
                             color: '#8BC34A',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'ocean tide',
+                                    back: 'the periodic rise and fall of the ocean\'s surface caused by the gravitational force between Earth and the Moon, and Earth and the Sun.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'daily tide',
+                                    back: 'the predictable rise and fall of the ocean\'s surface each day.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'high tide',
+                                    back: 'when the ocean\'s surface reaches its highest point.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'low tide',
+                                    back: 'when the ocean\'s surface reaches its lowest point.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'tidal range',
+                                    back: 'the difference in water height between a high tide and a low tide.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'spring tide',
+                                    back: 'the largest tidal range that occurs when the Sun, Earth, and the Moon form a straight line.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'neap tide',
+                                    back: 'the lowest tidal range that occurs when the Sun, Earth, and the Moon form a right angle.'
+                                }
                             ]
                         }
                     ]
@@ -716,7 +794,46 @@ class FlashcardApp {
                             name: 'Lesson 6.1: Earth\'s Spheres',
                             color: '#CDDC39',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'biosphere',
+                                    back: 'all the parts of Earth where there is life.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'geosphere',
+                                    back: 'Earth\'s solid and molten rocks, soil and sediment.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'sediment',
+                                    back: 'material that forms when rocks are broken down into smaller pieces or dissolved in water.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'magma',
+                                    back: 'molten or liquid rock underground.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'volcano',
+                                    back: 'a vent in Earth\'s crust through which molten rock flows.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'lava',
+                                    back: 'molten rock that erupts on Earth\'s surface.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'hydrosphere',
+                                    back: 'system containing all the solid and liquid water on Earth.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'atmosphere',
+                                    back: 'the layer of gases surrounding Earth.'
+                                }
                             ]
                         },
                         {
@@ -724,7 +841,31 @@ class FlashcardApp {
                             name: 'Lesson 6.2: Earth\'s Layers',
                             color: '#CDDC39',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'crust',
+                                    back: 'the brittle, rocky, least dense, outer layer of Earth.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'mantle',
+                                    back: 'the thick middle layer in the solid part of Earth.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'core',
+                                    back: 'the dense metallic center of Earth.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'outer core',
+                                    back: 'the liquid layer surrounding the inner core, mostly composed of liquid iron and nickel.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'inner core',
+                                    back: 'the innermost geologic layer of Earth, a dense ball of solid iron crystals.'
+                                }
                             ]
                         },
                         {
@@ -732,7 +873,56 @@ class FlashcardApp {
                             name: 'Lesson 6.3: The Rock Cycle',
                             color: '#CDDC39',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'igneous rock',
+                                    back: 'rocks that form when magma or lava cools and crystallizes.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'sedimentary rock',
+                                    back: 'rocks that form from the deposition and accumulation of pieces of pre-existing rock, chemical precipitates, and parts of once-living organisms.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'compaction',
+                                    back: 'a process in which the weight from the layers of sediment forces out fluids and decreases the space between sediment grains.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'cementation',
+                                    back: 'a process in which minerals dissolved in water crystallize between sediment grains.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'metamorphic rock',
+                                    back: 'rocks that form without melting, when pre-existing rocks experience high heat, pressure, or react with fluids.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'rock cycle',
+                                    back: 'the series of processes that change one type of rock into another type of rock.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'uplift',
+                                    back: 'the process that moves large bodies of Earth materials to higher elevations.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'weathering',
+                                    back: 'the mechanical and chemical processes that change Earth\'s surface over time.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'erosion',
+                                    back: 'when broken down pieces of rocks are transported.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'deposition',
+                                    back: 'when transported sediment accumulates into layers, such as at the bottom of lakes, the ocean, along beaches, or in river valleys.'
+                                }
                             ]
                         }
                     ]
