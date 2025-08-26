@@ -575,7 +575,41 @@ class FlashcardApp {
                             name: 'Lesson 4.1: Kinetic and Potential Energy',
                             color: '#009688',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'energy',
+                                    back: 'the ability to cause change.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'work',
+                                    back: 'the transfer of energy to an object by a force that makes an object move in the direction of the force.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'kinetic energy',
+                                    back: 'energy due to motion.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'potential energy',
+                                    back: 'stored energy due to the interactions between objects or particles.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'gravitational potential energy',
+                                    back: 'stored energy due to the interactions of objects in a gravitational field.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'elastic potential energy',
+                                    back: 'energy stored in objects that are compressed or stretched, such as springs and rubber bands.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'chemical potential energy',
+                                    back: 'the energy released when atoms form connections.'
+                                }
                             ]
                         },
                         {
@@ -583,7 +617,36 @@ class FlashcardApp {
                             name: 'Lesson 4.2: Energy Transfer and Transformation',
                             color: '#009688',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'system',
+                                    back: 'a collection of objects that interact in some way.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'law of conservation of energy',
+                                    back: 'states that energy is always transferring or transforming, but energy is not created or destroyed.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'energy transfer',
+                                    back: 'occurs when energy is moved from one object to another.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'energy transformation',
+                                    back: 'occurs when energy is changed from one form to another.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'source object',
+                                    back: 'the object that provides energy for energy transfer.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'receiver object',
+                                    back: 'the object that gains energy from the energy transfer.'
+                                }
                             ]
                         },
                         {
@@ -591,7 +654,31 @@ class FlashcardApp {
                             name: 'Lesson 4.3: Transferring Energy Through Waves',
                             color: '#009688',
                             cards: [
-                                // Add vocabulary when provided
+                                {
+                                    id: this.generateId(),
+                                    front: 'wave',
+                                    back: 'a disturbance that transfers energy from one place to another without transferring matter.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'mechanical wave',
+                                    back: 'a wave that can travel only through matter.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'medium',
+                                    back: 'a material in which a wave travels.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'transverse wave',
+                                    back: 'a wave in which the disturbance is perpendicular to the direction the wave travels.'
+                                },
+                                {
+                                    id: this.generateId(),
+                                    front: 'longitudinal wave',
+                                    back: 'a wave in which the disturbance is parallel to the direction the wave travels.'
+                                }
                             ]
                         }
                     ]
