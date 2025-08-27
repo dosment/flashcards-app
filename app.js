@@ -41,7 +41,7 @@ class FlashcardApp {
         this.showScreen('home');
         
         // Create vocabulary data if no data exists for each user or if version is outdated
-        const DATA_VERSION = '2.1'; // Updated to force refresh with complete curriculum and fix Safari caching
+        const DATA_VERSION = '2.2'; // Fixed duplicate subject creation bug
         
         // Check for mixed/corrupted data and force clean refresh
         const needsVanceUpdate = this.userData.vance.subjects.length === 0 || 
@@ -151,6 +151,9 @@ class FlashcardApp {
     
     createVocabularyData(user) {
         const userData = this.userData[user];
+        
+        // Clear existing subjects to prevent duplicates
+        userData.subjects = [];
         
         const scienceSubject = {
             id: this.generateId(),
