@@ -44,6 +44,7 @@ class FlashcardApp {
         this.loadData();
         this.setupEventListeners();
         this.setupKeyboardShortcuts();
+        this.setupMobileHandlers(); // SE HARD REQ - Add mobile handlers
         this.applyTheme();
         this.showScreen('home');
         
@@ -1422,6 +1423,81 @@ class FlashcardApp {
                     break;
             }
         });
+    }
+    
+    // SE HARD REQ - Mobile viewport handlers
+    setupMobileHandlers() {
+        let resizeTimer;
+        let lastHeight = window.innerHeight;
+        
+        // Calculate safe viewport height accounting for URL bar
+        const calculateSafeHeight = () => {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            
+            // Check if content would overflow on smallest devices
+            const isSE = window.innerWidth <= 320 && window.innerHeight <= 568;
+            const isCompact = window.innerHeight < 600;
+            
+            if (isSE || isCompact) {
+                document.body.classList.add('compact');
+            } else {
+                document.body.classList.remove('compact');
+            }
+            
+            // Prevent iOS input zoom
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.style.fontSize = '16px';
+            });
+        };
+        
+        // Debounced resize handler
+        const handleResize = () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                const currentHeight = window.innerHeight;
+                
+                // Only recalculate if height changed significantly (URL bar show/hide)
+                if (Math.abs(currentHeight - lastHeight) > 20) {
+                    calculateSafeHeight();
+                    lastHeight = currentHeight;
+                }
+            }, 100);
+        };
+        
+        // Initial calculation
+        calculateSafeHeight();
+        
+        // Listen for resize and orientation changes
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(calculateSafeHeight, 200); // Delay for orientation animation
+        });
+        
+        // Prevent pull-to-refresh on iOS
+        let startY = 0;
+        document.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].pageY;
+        }, { passive: false });
+        
+        document.addEventListener('touchmove', (e) => {
+            const y = e.touches[0].pageY;
+            // Prevent overscroll when at the top
+            if (document.documentElement.scrollTop === 0 && y > startY) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        // Prevent double-tap zoom
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
     }
     
     // Screen Management
