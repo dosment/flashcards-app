@@ -41,14 +41,27 @@ class FlashcardApp {
         this.showScreen('home');
         
         // Create vocabulary data if no data exists for each user or if version is outdated
-        const DATA_VERSION = '2.0'; // Updated to force refresh with complete curriculum
+        const DATA_VERSION = '2.1'; // Updated to force refresh with complete curriculum and fix Safari caching
         
-        if (this.userData.vance.subjects.length === 0 || !this.userData.vance.dataVersion || this.userData.vance.dataVersion !== DATA_VERSION) {
+        // Check for mixed/corrupted data and force clean refresh
+        const needsVanceUpdate = this.userData.vance.subjects.length === 0 || 
+                                !this.userData.vance.dataVersion || 
+                                this.userData.vance.dataVersion !== DATA_VERSION ||
+                                (this.userData.vance.subjects.length > 0 && this.userData.vance.subjects[0].chapters.length < 10);
+        
+        const needsTuckerUpdate = this.userData.tucker.subjects.length === 0 || 
+                                 !this.userData.tucker.dataVersion || 
+                                 this.userData.tucker.dataVersion !== DATA_VERSION ||
+                                 (this.userData.tucker.subjects.length > 0 && this.userData.tucker.subjects[0].chapters.length < 10);
+        
+        if (needsVanceUpdate) {
+            console.log('Updating Vance data to version', DATA_VERSION);
             this.createVocabularyData('vance');
             this.userData.vance.dataVersion = DATA_VERSION;
             this.saveDataForUser('vance');
         }
-        if (this.userData.tucker.subjects.length === 0 || !this.userData.tucker.dataVersion || this.userData.tucker.dataVersion !== DATA_VERSION) {
+        if (needsTuckerUpdate) {
+            console.log('Updating Tucker data to version', DATA_VERSION);
             this.createVocabularyData('tucker');
             this.userData.tucker.dataVersion = DATA_VERSION;
             this.saveDataForUser('tucker');
