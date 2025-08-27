@@ -1787,8 +1787,24 @@ class FlashcardApp {
             `${this.currentQuestionIndex + 1} of ${this.quizQuestions.length}`;
         document.getElementById('quiz-progress-fill').style.width = `${progress}%`;
         
-        // Update chapter name
-        document.getElementById('quiz-chapter-name').textContent = `${this.quizChapter.name} Quiz`;
+        // Update chapter name - shortened for mobile
+        let chapterName = this.quizChapter.name;
+        // Shorten long chapter names for mobile
+        if (window.innerWidth <= 480) {
+            chapterName = chapterName
+                .replace('Scientific and Engineering Practices', 'SEP')
+                .replace('Chapter ', 'Ch. ')
+                .replace('Classification of Matter', 'Matter Classification')
+                .replace('Interactions of Matter', 'Matter Interactions')
+                .replace('Forces and Their Interactions', 'Forces')
+                .replace('Conservation of Energy', 'Energy')
+                .replace('The Sun-Earth-Moon System', 'Sun-Earth-Moon')
+                .replace("Earth's Structure", 'Earth Structure')
+                .replace("Earth's Resources", 'Earth Resources')
+                .replace('Living Systems and the Environment', 'Living Systems')
+                .replace('Organisms and Variations', 'Organisms');
+        }
+        document.getElementById('quiz-chapter-name').textContent = `${chapterName} Quiz`;
         
         // Update question and options
         document.getElementById('quiz-question').textContent = question.question;
