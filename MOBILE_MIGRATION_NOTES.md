@@ -6,9 +6,9 @@
 - **Line 5**: Added `viewport-fit=cover` to viewport meta tag for notch support
 
 ### CSS Changes (`styles.css`)
-- **Lines 9-14**: Added mobile core rules preventing all scrolling with `overflow: hidden` and `position: fixed`
-- **Lines 53-64**: Converted main layout to CSS Grid with `dvh` units and safe-area-inset padding
-- **Lines 69-74**: Updated screen containers with dynamic padding and overflow protection
+- **Lines 9-16**: Added mobile core rules preventing horizontal scrolling while allowing necessary vertical scrolling
+- **Lines 53-61**: Converted main layout to flexbox with `dvh` units and safe-area-inset padding  
+- **Lines 63-74**: Updated screen containers with dynamic padding and controlled scrolling within viewport constraints
 - **Lines 86-93**: Implemented responsive header with clamp() functions
 - **Lines 97**: App title uses clamp(16px, 4vw, 20px) to prevent iOS zoom
 - **Lines 374-376**: All buttons have min-height 44px and min-width 44px for tap targets
@@ -27,7 +27,7 @@
 
 ## Why These Changes Were Made
 
-1. **Zero Scrolling**: The original app used `overflow-y: auto` which created scrollable areas. All overflow has been eliminated.
+1. **Smart Scrolling**: Horizontal scrolling is prevented to avoid viewport issues, while vertical scrolling is allowed within screen containers to ensure all content is accessible.
 
 2. **Dynamic Heights**: Fixed pixel heights (400px flashcards) wouldn't fit on SE. Now uses viewport-relative units with clamps.
 

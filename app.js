@@ -1475,16 +1475,19 @@ class FlashcardApp {
             setTimeout(calculateSafeHeight, 200); // Delay for orientation animation
         });
         
-        // Prevent pull-to-refresh on iOS
+        // Prevent pull-to-refresh on iOS - only at document level
         let startY = 0;
         document.addEventListener('touchstart', (e) => {
             startY = e.touches[0].pageY;
-        }, { passive: false });
+        }, { passive: true });
         
         document.addEventListener('touchmove', (e) => {
             const y = e.touches[0].pageY;
-            // Prevent overscroll when at the top
-            if (document.documentElement.scrollTop === 0 && y > startY) {
+            // Only prevent overscroll when at the very top of the document
+            if (document.documentElement.scrollTop === 0 && 
+                document.body.scrollTop === 0 && 
+                y > startY && 
+                e.target === document.body) {
                 e.preventDefault();
             }
         }, { passive: false });
