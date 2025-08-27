@@ -1782,7 +1782,7 @@ class FlashcardApp {
         const question = this.quizQuestions[this.currentQuestionIndex];
         
         // Update progress
-        const progress = ((this.currentQuestionIndex + 1) / this.quizQuestions.length) * 100;
+        const progress = Math.round(((this.currentQuestionIndex + 1) / this.quizQuestions.length) * 100);
         document.getElementById('quiz-progress-text').textContent = 
             `${this.currentQuestionIndex + 1} of ${this.quizQuestions.length}`;
         document.getElementById('quiz-progress-fill').style.width = `${progress}%`;
