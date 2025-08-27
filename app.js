@@ -1538,7 +1538,7 @@ class FlashcardApp {
                             📚 Study
                         </button>
                         <button class="chapter-action-btn quiz-btn" data-chapter-id="${chapter.id}" data-action="quiz" ${totalCards === 0 ? 'disabled' : ''}>
-                            🧠 Quiz
+                            Quiz
                         </button>
                     </div>
                 </div>
