@@ -102,6 +102,81 @@
 
 
 
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-header">
+                <button id="back-from-quiz" class="back-button">← Back</button>
+                <div class="quiz-info">
+                    <h2 id="quiz-chapter-name">Chapter Quiz</h2>
+                    <div class="quiz-progress">
+                        <span id="quiz-progress-text">1 of 10</span>
+                        <div class="progress-bar">
+                            <div id="quiz-progress-fill" class="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-content">
+                <div id="quiz-question-card" class="quiz-question-card">
+                    <div class="question-text">
+                        <h3 id="quiz-question">What is the definition of...</h3>
+                    </div>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-option="0">
+                            <span class="option-letter">A.</span>
+                            <span class="option-text" id="option-0">Option A</span>
+                        </button>
+                        <button class="quiz-option" data-option="1">
+                            <span class="option-letter">B.</span>
+                            <span class="option-text" id="option-1">Option B</span>
+                        </button>
+                        <button class="quiz-option" data-option="2">
+                            <span class="option-letter">C.</span>
+                            <span class="option-text" id="option-2">Option C</span>
+                        </button>
+                        <button class="quiz-option" data-option="3">
+                            <span class="option-letter">D.</span>
+                            <span class="option-text" id="option-3">Option D</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="quiz-controls">
+                    <button id="quiz-next" class="quiz-next-button hidden">Next Question</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Results Screen -->
+        <div id="quiz-results-screen" class="screen">
+            <div class="quiz-results-header">
+                <h2>Quiz Complete!</h2>
+            </div>
+            <div class="quiz-results-content">
+                <div class="score-display">
+                    <div class="score-circle">
+                        <span id="score-percentage">85%</span>
+                    </div>
+                    <p id="score-text">Great job!</p>
+                </div>
+                <div class="score-details">
+                    <div class="score-stat">
+                        <span class="stat-label">Correct:</span>
+                        <span id="correct-count" class="stat-value">17</span>
+                    </div>
+                    <div class="score-stat">
+                        <span class="stat-label">Total:</span>
+                        <span id="total-count" class="stat-value">20</span>
+                    </div>
+                </div>
+                <div class="quiz-actions">
+                    <button id="retake-quiz" class="quiz-action-button">Retake Quiz</button>
+                    <button id="back-to-chapters-from-results" class="quiz-action-button secondary">Back to Chapters</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Study Screen -->
         <div id="study-screen" class="screen">
             <div class="study-header">
@@ -149,6 +224,6 @@
 
     </div>
 
-    <script src="app.js?v=2.2"></script>
+    <script src="app.js?v=2.3"></script>
 </body>
 </html>

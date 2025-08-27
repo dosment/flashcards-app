@@ -30,6 +30,13 @@ class FlashcardApp {
         this.isCardFlipped = false;
         this.mode = 'study'; // Always study mode
         
+        // Quiz properties
+        this.quizChapter = null;
+        this.quizQuestions = [];
+        this.currentQuestionIndex = 0;
+        this.quizScore = 0;
+        this.selectedAnswer = null;
+        
         this.init();
     }
     
@@ -41,7 +48,7 @@ class FlashcardApp {
         this.showScreen('home');
         
         // Create vocabulary data if no data exists for each user or if version is outdated
-        const DATA_VERSION = '2.2'; // Fixed duplicate subject creation bug
+        const DATA_VERSION = '2.3'; // Added chapter quiz functionality
         
         // Check for mixed/corrupted data and force clean refresh
         const needsVanceUpdate = this.userData.vance.subjects.length === 0 || 
@@ -1366,6 +1373,29 @@ class FlashcardApp {
                 this.setupStudySession();
             }
         });
+        
+        // Quiz controls
+        document.getElementById('back-from-quiz').addEventListener('click', () => {
+            this.showChapterList();
+        });
+        
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                this.selectQuizAnswer(parseInt(e.currentTarget.dataset.option));
+            });
+        });
+        
+        document.getElementById('quiz-next').addEventListener('click', () => {
+            this.nextQuizQuestion();
+        });
+        
+        document.getElementById('retake-quiz').addEventListener('click', () => {
+            this.startChapterQuiz(this.quizChapter.id);
+        });
+        
+        document.getElementById('back-to-chapters-from-results').addEventListener('click', () => {
+            this.showChapterList();
+        });
     }
     
     setupKeyboardShortcuts() {
@@ -1500,18 +1530,33 @@ class FlashcardApp {
                         <h3 class="deck-name">${this.escapeHtml(chapter.name)}</h3>
                     </div>
                     <div class="deck-info">
-                        ${chapter.decks.length} deck${chapter.decks.length !== 1 ? 's' : ''} • 
+                        ${chapter.decks.length} lesson${chapter.decks.length !== 1 ? 's' : ''} • 
                         ${totalCards} vocabulary word${totalCards !== 1 ? 's' : ''}
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-action-btn study-btn" data-chapter-id="${chapter.id}" data-action="study">
+                            📚 Study
+                        </button>
+                        <button class="chapter-action-btn quiz-btn" data-chapter-id="${chapter.id}" data-action="quiz" ${totalCards === 0 ? 'disabled' : ''}>
+                            🧠 Quiz
+                        </button>
                     </div>
                 </div>
             `;
         }).join('');
         
-        // Add event listeners for chapter cards
-        chapterList.querySelectorAll('.chapter-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                const chapterId = card.dataset.chapterId;
-                this.selectChapter(chapterId);
+        // Add event listeners for chapter action buttons
+        chapterList.querySelectorAll('.chapter-action-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent card click
+                const chapterId = btn.dataset.chapterId;
+                const action = btn.dataset.action;
+                
+                if (action === 'study') {
+                    this.selectChapter(chapterId);
+                } else if (action === 'quiz') {
+                    this.startChapterQuiz(chapterId);
+                }
             });
         });
     }
@@ -1674,6 +1719,142 @@ class FlashcardApp {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
+    }
+    
+    // Quiz Methods
+    startChapterQuiz(chapterId) {
+        this.quizChapter = this.currentSubject.chapters.find(chapter => chapter.id === chapterId);
+        if (!this.quizChapter) return;
+        
+        // Collect all vocabulary words from all lessons in the chapter
+        const allCards = [];
+        this.quizChapter.decks.forEach(deck => {
+            allCards.push(...deck.cards);
+        });
+        
+        if (allCards.length === 0) {
+            alert('This chapter has no vocabulary words for the quiz!');
+            return;
+        }
+        
+        // Generate quiz questions
+        this.generateQuizQuestions(allCards);
+        
+        // Reset quiz state
+        this.currentQuestionIndex = 0;
+        this.quizScore = 0;
+        this.selectedAnswer = null;
+        
+        this.showScreen('quiz');
+        this.updateQuizScreen();
+    }
+    
+    generateQuizQuestions(cards) {
+        // Shuffle the cards to randomize question order
+        this.shuffleArray(cards);
+        
+        this.quizQuestions = cards.map(card => {
+            // Create wrong answers by getting definitions from other cards
+            const otherCards = cards.filter(c => c.id !== card.id);
+            this.shuffleArray(otherCards);
+            
+            const wrongAnswers = otherCards.slice(0, 3).map(c => c.back);
+            
+            // Create options array with correct answer and wrong answers
+            const options = [card.back, ...wrongAnswers];
+            this.shuffleArray(options);
+            
+            return {
+                question: `What is the definition of "${card.front}"?`,
+                options: options,
+                correctAnswer: options.indexOf(card.back),
+                term: card.front
+            };
+        });
+    }
+    
+    updateQuizScreen() {
+        if (this.currentQuestionIndex >= this.quizQuestions.length) {
+            this.showQuizResults();
+            return;
+        }
+        
+        const question = this.quizQuestions[this.currentQuestionIndex];
+        
+        // Update progress
+        const progress = ((this.currentQuestionIndex + 1) / this.quizQuestions.length) * 100;
+        document.getElementById('quiz-progress-text').textContent = 
+            `${this.currentQuestionIndex + 1} of ${this.quizQuestions.length}`;
+        document.getElementById('quiz-progress-fill').style.width = `${progress}%`;
+        
+        // Update chapter name
+        document.getElementById('quiz-chapter-name').textContent = `${this.quizChapter.name} Quiz`;
+        
+        // Update question and options
+        document.getElementById('quiz-question').textContent = question.question;
+        
+        question.options.forEach((option, index) => {
+            document.getElementById(`option-${index}`).textContent = option;
+        });
+        
+        // Reset option states
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.classList.remove('selected', 'correct', 'incorrect');
+            option.disabled = false;
+        });
+        
+        document.getElementById('quiz-next').classList.add('hidden');
+        this.selectedAnswer = null;
+    }
+    
+    selectQuizAnswer(optionIndex) {
+        if (this.selectedAnswer !== null) return; // Already answered
+        
+        this.selectedAnswer = optionIndex;
+        const question = this.quizQuestions[this.currentQuestionIndex];
+        const isCorrect = optionIndex === question.correctAnswer;
+        
+        if (isCorrect) {
+            this.quizScore++;
+        }
+        
+        // Show correct/incorrect styling
+        document.querySelectorAll('.quiz-option').forEach((option, index) => {
+            option.disabled = true;
+            if (index === question.correctAnswer) {
+                option.classList.add('correct');
+            } else if (index === optionIndex && !isCorrect) {
+                option.classList.add('incorrect');
+            }
+        });
+        
+        // Show next button
+        document.getElementById('quiz-next').classList.remove('hidden');
+    }
+    
+    nextQuizQuestion() {
+        this.currentQuestionIndex++;
+        this.updateQuizScreen();
+    }
+    
+    showQuizResults() {
+        const percentage = Math.round((this.quizScore / this.quizQuestions.length) * 100);
+        
+        document.getElementById('score-percentage').textContent = `${percentage}%`;
+        document.getElementById('correct-count').textContent = this.quizScore;
+        document.getElementById('total-count').textContent = this.quizQuestions.length;
+        
+        // Set score message
+        let message = '';
+        if (percentage >= 90) message = 'Excellent work! 🎉';
+        else if (percentage >= 80) message = 'Great job! 👏';
+        else if (percentage >= 70) message = 'Good effort! 👍';
+        else if (percentage >= 60) message = 'Keep practicing! 📚';
+        else message = 'Review and try again! 💪';
+        
+        document.getElementById('score-text').textContent = message;
+        
+        this.showScreen('quiz-results');
     }
     
     // Theme Management
