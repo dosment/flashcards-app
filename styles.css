@@ -1730,3 +1730,91 @@ button:focus, input:focus, textarea:focus {
     display: flex;
     flex-direction: column;
 }
+
+/* DESKTOP OPTIMIZATIONS */
+@media (min-width: 768px) {
+    /* Enhanced typography for larger screens */
+    body {
+        font-size: 20px;
+        line-height: 1.6;
+    }
+    
+    .app-title {
+        font-size: 28px;
+    }
+    
+    /* Better spacing for desktop */
+    .header {
+        padding: 20px 24px;
+    }
+    
+    .screen {
+        padding: 24px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    /* Larger flashcards for desktop */
+    .flashcard {
+        max-width: 700px;
+        height: clamp(300px, 40vh, 500px);
+        margin: 0 auto;
+    }
+    
+    .card-text {
+        font-size: 28px;
+        line-height: 1.4;
+    }
+    
+    /* Better button spacing */
+    .study-controls {
+        gap: 30px;
+    }
+    
+    .answer-buttons {
+        gap: 50px;
+    }
+    
+    /* Enhanced quiz layout */
+    .quiz-question-card {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px;
+    }
+    
+    .quiz-options {
+        gap: 20px;
+    }
+    
+    .quiz-option {
+        padding: 20px 25px;
+        font-size: 18px;
+    }
+    
+    /* Better grid layouts */
+    .deck-list {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 25px;
+    }
+}
+
+@media (min-width: 1024px) {
+    /* Large desktop optimizations */
+    .screen {
+        padding: 32px 48px;
+    }
+    
+    .deck-list {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+    }
+    
+    .flashcard {
+        max-width: 800px;
+        height: clamp(350px, 45vh, 550px);
+    }
+    
+    .card-text {
+        font-size: 32px;
+    }
+}

@@ -39,7 +39,7 @@ class FlashcardApp {
         this.showScreen('home');
         
         // Create vocabulary data if no data exists or if version is outdated
-        const DATA_VERSION = '2.3'; // Added chapter quiz functionality
+        const DATA_VERSION = '2.4'; // Added multiplication tables
         
         // Check for mixed/corrupted data and force clean refresh
         const needsUpdate = this.userData.subjects.length === 0 || 
@@ -1239,7 +1239,46 @@ class FlashcardApp {
             ]
         };
         
+        // Create Multiplication Tables Subject
+        const mathSubject = {
+            id: this.generateId(),
+            name: 'Multiplication Tables',
+            color: '#9C27B0',
+            chapters: [
+                {
+                    id: this.generateId(),
+                    name: 'Times Tables 1-12',
+                    decks: [
+                        {
+                            id: this.generateId(),
+                            name: 'Multiplication Facts 1x1 to 12x12',
+                            color: '#9C27B0',
+                            cards: this.generateMultiplicationCards()
+                        }
+                    ]
+                }
+            ]
+        };
+
         this.userData.subjects.push(scienceSubject);
+        this.userData.subjects.push(mathSubject);
+    }
+    
+    generateMultiplicationCards() {
+        const cards = [];
+        
+        // Generate multiplication cards from 1x1 to 12x12
+        for (let i = 1; i <= 12; i++) {
+            for (let j = 1; j <= 12; j++) {
+                cards.push({
+                    id: this.generateId(),
+                    front: `${i} × ${j}`,
+                    back: `${i * j}`
+                });
+            }
+        }
+        
+        return cards;
     }
     
     generateId() {
@@ -1323,7 +1362,15 @@ class FlashcardApp {
     
     setupKeyboardShortcuts() {
         document.addEventListener('keydown', (e) => {
-            // Only handle shortcuts in study mode
+            // Global shortcuts
+            if (e.key === 'Escape') {
+                // Go back one screen on Escape
+                e.preventDefault();
+                this.goBack();
+                return;
+            }
+            
+            // Only handle study shortcuts in study mode
             if (this.currentScreen !== 'study') return;
             
             switch(e.key) {
@@ -1332,12 +1379,14 @@ class FlashcardApp {
                     this.flipCard();
                     break;
                 case 'ArrowRight': // Right arrow for "Got it"
+                case 'Enter': // Enter also for "Got it"
                     e.preventDefault();
                     if (this.isCardFlipped) {
                         this.answerCard(true);
                     }
                     break;
                 case 'ArrowLeft': // Left arrow for "Try again"
+                case 'Backspace': // Backspace for "Try again"
                     e.preventDefault();
                     if (this.isCardFlipped) {
                         this.answerCard(false);
@@ -1345,6 +1394,29 @@ class FlashcardApp {
                     break;
             }
         });
+    }
+    
+    goBack() {
+        switch (this.currentScreen) {
+            case 'study':
+                this.showLessonList();
+                break;
+            case 'quiz':
+                this.showChapterList();
+                break;
+            case 'quiz-results':
+                this.showChapterList();
+                break;
+            case 'lesson-list':
+                this.showChapterList();
+                break;
+            case 'chapter-list':
+                this.showSubjectList();
+                break;
+            case 'subject-list':
+                this.showScreen('home');
+                break;
+        }
     }
     
     // SE HARD REQ - Mobile viewport handlers
