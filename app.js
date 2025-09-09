@@ -3,21 +3,11 @@
 
 class FlashcardApp {
     constructor() {
-        this.currentUser = 'vance'; // Default user
         this.userData = {
-            vance: {
-                subjects: [],
-                settings: {
-                    darkMode: false,
-                    shuffle: true
-                }
-            },
-            tucker: {
-                subjects: [],
-                settings: {
-                    darkMode: false,
-                    shuffle: true
-                }
+            subjects: [],
+            settings: {
+                darkMode: false,
+                shuffle: true
             }
         };
         
@@ -48,31 +38,20 @@ class FlashcardApp {
         this.applyTheme();
         this.showScreen('home');
         
-        // Create vocabulary data if no data exists for each user or if version is outdated
+        // Create vocabulary data if no data exists or if version is outdated
         const DATA_VERSION = '2.3'; // Added chapter quiz functionality
         
         // Check for mixed/corrupted data and force clean refresh
-        const needsVanceUpdate = this.userData.vance.subjects.length === 0 || 
-                                !this.userData.vance.dataVersion || 
-                                this.userData.vance.dataVersion !== DATA_VERSION ||
-                                (this.userData.vance.subjects.length > 0 && this.userData.vance.subjects[0].chapters.length < 10);
+        const needsUpdate = this.userData.subjects.length === 0 || 
+                           !this.userData.dataVersion || 
+                           this.userData.dataVersion !== DATA_VERSION ||
+                           (this.userData.subjects.length > 0 && this.userData.subjects[0].chapters.length < 10);
         
-        const needsTuckerUpdate = this.userData.tucker.subjects.length === 0 || 
-                                 !this.userData.tucker.dataVersion || 
-                                 this.userData.tucker.dataVersion !== DATA_VERSION ||
-                                 (this.userData.tucker.subjects.length > 0 && this.userData.tucker.subjects[0].chapters.length < 10);
-        
-        if (needsVanceUpdate) {
-            console.log('Updating Vance data to version', DATA_VERSION);
-            this.createVocabularyData('vance');
-            this.userData.vance.dataVersion = DATA_VERSION;
-            this.saveDataForUser('vance');
-        }
-        if (needsTuckerUpdate) {
-            console.log('Updating Tucker data to version', DATA_VERSION);
-            this.createVocabularyData('tucker');
-            this.userData.tucker.dataVersion = DATA_VERSION;
-            this.saveDataForUser('tucker');
+        if (needsUpdate) {
+            console.log('Updating data to version', DATA_VERSION);
+            this.createVocabularyData();
+            this.userData.dataVersion = DATA_VERSION;
+            this.saveData();
         }
         
         this.updateTitle();
@@ -80,88 +59,43 @@ class FlashcardApp {
     
     // Data Management
     loadData() {
-        // Load data for both users
-        for (const user of ['vance', 'tucker']) {
-            const savedData = localStorage.getItem(`flashcardData_${user}`);
-            if (savedData) {
-                try {
-                    const parsedData = JSON.parse(savedData);
-                    if (parsedData.subjects) {
-                        this.userData[user] = parsedData;
-                    }
-                    
-                    // Ensure settings exist
-                    if (!this.userData[user].settings) {
-                        this.userData[user].settings = { darkMode: false, shuffle: true };
-                    }
-                } catch (e) {
-                    console.error(`Error loading data for ${user}:`, e);
+        const savedData = localStorage.getItem('flashcardData');
+        if (savedData) {
+            try {
+                const parsedData = JSON.parse(savedData);
+                if (parsedData.subjects) {
+                    this.userData = parsedData;
                 }
+                
+                // Ensure settings exist
+                if (!this.userData.settings) {
+                    this.userData.settings = { darkMode: false, shuffle: true };
+                }
+            } catch (e) {
+                console.error('Error loading data:', e);
             }
         }
-        
-        // Load last selected user
-        const lastUser = localStorage.getItem('lastSelectedUser');
-        if (lastUser && ['vance', 'tucker'].includes(lastUser)) {
-            this.currentUser = lastUser;
-        }
-        
-        // Update UI
-        document.getElementById('user-select').value = this.currentUser;
     }
     
     saveData() {
         try {
-            localStorage.setItem(`flashcardData_${this.currentUser}`, JSON.stringify(this.getCurrentUserData()));
-            localStorage.setItem('lastSelectedUser', this.currentUser);
+            localStorage.setItem('flashcardData', JSON.stringify(this.userData));
         } catch (e) {
             console.error('Error saving data:', e);
         }
     }
-    
-    saveDataForUser(user) {
-        try {
-            localStorage.setItem(`flashcardData_${user}`, JSON.stringify(this.userData[user]));
-        } catch (e) {
-            console.error(`Error saving data for ${user}:`, e);
-        }
-    }
-    
-    getCurrentUserData() {
-        return this.userData[this.currentUser];
-    }
-    
-    switchUser(newUser) {
-        if (!['vance', 'tucker'].includes(newUser)) return;
-        
-        this.currentUser = newUser;
-        this.currentSubject = null;
-        this.currentChapter = null;
-        this.currentDeck = null;
-        
-        // Save the user preference
-        localStorage.setItem('lastSelectedUser', this.currentUser);
-        
-        // Apply theme for current user
-        this.applyTheme();
-        
-        // Go back to home screen
-        this.showScreen('home');
         
         // Update title to show current user
         this.updateTitle();
     }
     
     updateTitle() {
-        const userName = this.currentUser.charAt(0).toUpperCase() + this.currentUser.slice(1);
-        document.querySelector('.app-title').textContent = `${userName}'s Flashcards`;
+        document.querySelector('.app-title').textContent = 'My Flashcards';
     }
     
-    createVocabularyData(user) {
-        const userData = this.userData[user];
-        
+    createVocabularyData() {
         // Clear existing subjects to prevent duplicates
-        userData.subjects = [];
+        this.userData.subjects = [];
         
         const scienceSubject = {
             id: this.generateId(),
@@ -1305,14 +1239,7 @@ class FlashcardApp {
             ]
         };
         
-        userData.subjects.push(scienceSubject);
-        
-        // Save data for this specific user
-        try {
-            localStorage.setItem(`flashcardData_${user}`, JSON.stringify(userData));
-        } catch (e) {
-            console.error(`Error saving vocabulary data for ${user}:`, e);
-        }
+        this.userData.subjects.push(scienceSubject);
     }
     
     generateId() {
@@ -1324,11 +1251,6 @@ class FlashcardApp {
         // Home screen button - only study now
         document.getElementById('study-cards-btn').addEventListener('click', () => {
             this.showSubjectList();
-        });
-        
-        // User switcher
-        document.getElementById('user-select').addEventListener('change', (e) => {
-            this.switchUser(e.target.value);
         });
         
         // Header controls
@@ -1368,7 +1290,7 @@ class FlashcardApp {
         });
         
         document.getElementById('shuffle-checkbox').addEventListener('change', (e) => {
-            this.getCurrentUserData().settings.shuffle = e.target.checked;
+            this.userData.settings.shuffle = e.target.checked;
             this.saveData();
             if (this.studyCards.length > 0) {
                 this.setupStudySession();
@@ -1542,7 +1464,7 @@ class FlashcardApp {
     
     updateSubjectList() {
         const subjectList = document.getElementById('subject-list');
-        const subjects = this.getCurrentUserData().subjects;
+        const subjects = this.userData.subjects;
         
         if (subjects.length === 0) {
             subjectList.innerHTML = `
@@ -1689,7 +1611,7 @@ class FlashcardApp {
         
         // Mobile - show just chapter name
         document.getElementById('study-deck-name-mobile').textContent = this.currentChapter.name;
-        document.getElementById('shuffle-checkbox').checked = this.getCurrentUserData().settings.shuffle;
+        document.getElementById('shuffle-checkbox').checked = this.userData.settings.shuffle;
         
         this.setupStudySession();
         this.showCurrentCard();
@@ -1697,7 +1619,7 @@ class FlashcardApp {
     
     // Navigation Methods
     selectSubject(subjectId) {
-        this.currentSubject = this.getCurrentUserData().subjects.find(subject => subject.id === subjectId);
+        this.currentSubject = this.userData.subjects.find(subject => subject.id === subjectId);
         if (!this.currentSubject) return;
         
         this.showChapterList();
@@ -1728,7 +1650,7 @@ class FlashcardApp {
     setupStudySession() {
         this.studyCards = [...this.currentDeck.cards];
         
-        if (this.getCurrentUserData().settings.shuffle) {
+        if (this.userData.settings.shuffle) {
             this.shuffleArray(this.studyCards);
         }
         
@@ -1954,13 +1876,13 @@ class FlashcardApp {
     
     // Theme Management
     toggleTheme() {
-        this.getCurrentUserData().settings.darkMode = !this.getCurrentUserData().settings.darkMode;
+        this.userData.settings.darkMode = !this.userData.settings.darkMode;
         this.saveData();
         this.applyTheme();
     }
     
     applyTheme() {
-        if (this.getCurrentUserData().settings.darkMode) {
+        if (this.userData.settings.darkMode) {
             document.body.setAttribute('data-theme', 'dark');
             document.getElementById('theme-toggle').textContent = '☀️';
         } else {
