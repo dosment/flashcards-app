@@ -31,12 +31,14 @@ class FlashcardApp {
     }
     
     init() {
+        console.log('Initializing FlashcardApp');
         this.loadData();
         this.setupEventListeners();
         this.setupKeyboardShortcuts();
         this.setupMobileHandlers(); // SE HARD REQ - Add mobile handlers
         this.applyTheme();
         this.showScreen('home');
+        console.log('FlashcardApp initialization complete');
         
         // Create vocabulary data if no data exists or if version is outdated
         const DATA_VERSION = '2.4'; // Added multiplication tables
@@ -1288,9 +1290,16 @@ class FlashcardApp {
     // Event Listeners Setup
     setupEventListeners() {
         // Home screen button - only study now
-        document.getElementById('study-cards-btn').addEventListener('click', () => {
-            this.showSubjectList();
-        });
+        const studyBtn = document.getElementById('study-cards-btn');
+        if (studyBtn) {
+            console.log('Start Studying button found and event listener attached');
+            studyBtn.addEventListener('click', () => {
+                console.log('Start Studying button clicked');
+                this.showSubjectList();
+            });
+        } else {
+            console.error('Start Studying button not found!');
+        }
         
         // Header controls
         document.getElementById('theme-toggle').addEventListener('click', () => {
@@ -1499,17 +1508,25 @@ class FlashcardApp {
     
     // Screen Management
     showScreen(screenName) {
+        console.log(`showScreen(${screenName}) called`);
         // Hide all screens
         document.querySelectorAll('.screen').forEach(screen => {
             screen.classList.remove('active');
         });
         
         // Show selected screen
-        document.getElementById(`${screenName}-screen`).classList.add('active');
-        this.currentScreen = screenName;
+        const targetScreen = document.getElementById(`${screenName}-screen`);
+        if (targetScreen) {
+            targetScreen.classList.add('active');
+            this.currentScreen = screenName;
+            console.log(`Successfully switched to ${screenName} screen`);
+        } else {
+            console.error(`Screen element not found: ${screenName}-screen`);
+        }
     }
     
     showSubjectList() {
+        console.log('showSubjectList() called');
         document.getElementById('subject-list-title').textContent = 'Choose a Subject to Study';
         this.showScreen('subject-list');
         this.updateSubjectList();
@@ -1973,5 +1990,10 @@ class FlashcardApp {
 
 // Initialize the app when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    new FlashcardApp();
+    console.log('DOM Content Loaded - initializing FlashcardApp');
+    try {
+        new FlashcardApp();
+    } catch (error) {
+        console.error('Error initializing FlashcardApp:', error);
+    }
 });
