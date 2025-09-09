@@ -136,7 +136,26 @@
                 </div>
                 
                 <div class="quiz-controls">
+                    <button id="quiz-prev" class="quiz-nav-button hidden">← Previous</button>
+                    <button id="quiz-skip" class="quiz-skip-button">Skip</button>
                     <button id="quiz-next" class="quiz-next-button hidden">Next Question</button>
+                    <button id="quiz-submit" class="quiz-submit-button hidden">Submit Quiz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Confirmation Modal -->
+        <div id="quiz-confirmation-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Submit Quiz?</h3>
+                <p>Are you ready to submit your quiz for grading?</p>
+                <div class="quiz-confirmation-info">
+                    <p><span id="answered-count">0</span> of <span id="total-questions">20</span> questions answered</p>
+                    <p id="unanswered-warning" class="warning hidden">You have unanswered questions. You can still submit, but they will be marked incorrect.</p>
+                </div>
+                <div class="modal-actions">
+                    <button id="confirm-submit" class="quiz-action-button">Submit Quiz</button>
+                    <button id="cancel-submit" class="quiz-action-button secondary">Keep Working</button>
                 </div>
             </div>
         </div>
@@ -217,6 +236,6 @@
 
     </div>
 
-    <script src="app.js?v=2.9"></script>
+    <script src="app.js?v=3.0"></script>
 </body>
 </html>

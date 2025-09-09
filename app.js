@@ -26,6 +26,7 @@ class FlashcardApp {
         this.currentQuestionIndex = 0;
         this.quizScore = 0;
         this.selectedAnswer = null;
+        this.quizAnswers = []; // Track all answers for navigation
         
         this.init();
     }
@@ -1356,6 +1357,26 @@ class FlashcardApp {
             this.nextQuizQuestion();
         });
         
+        document.getElementById('quiz-prev').addEventListener('click', () => {
+            this.previousQuizQuestion();
+        });
+        
+        document.getElementById('quiz-skip').addEventListener('click', () => {
+            this.skipQuizQuestion();
+        });
+        
+        document.getElementById('quiz-submit').addEventListener('click', () => {
+            this.showQuizConfirmation();
+        });
+        
+        document.getElementById('confirm-submit').addEventListener('click', () => {
+            this.submitQuiz();
+        });
+        
+        document.getElementById('cancel-submit').addEventListener('click', () => {
+            this.hideQuizConfirmation();
+        });
+        
         document.getElementById('retake-quiz').addEventListener('click', () => {
             this.startChapterQuiz(this.quizChapter.id);
         });
@@ -1830,6 +1851,7 @@ class FlashcardApp {
         this.currentQuestionIndex = 0;
         this.quizScore = 0;
         this.selectedAnswer = null;
+        this.quizAnswers = new Array(this.quizQuestions.length).fill(null);
         
         this.showScreen('quiz');
         this.updateQuizScreen();
@@ -1914,44 +1936,125 @@ class FlashcardApp {
             document.getElementById(`option-${index}`).textContent = option;
         });
         
-        // Reset option states
-        document.querySelectorAll('.quiz-option').forEach(option => {
+        // Reset option states and restore previous answer if exists
+        const previousAnswer = this.quizAnswers[this.currentQuestionIndex];
+        document.querySelectorAll('.quiz-option').forEach((option, index) => {
             option.classList.remove('selected', 'correct', 'incorrect');
             option.disabled = false;
+            
+            // If this question was previously answered, show the selection
+            if (previousAnswer !== null && previousAnswer === index) {
+                option.classList.add('selected');
+            }
         });
         
-        document.getElementById('quiz-next').classList.add('hidden');
-        this.selectedAnswer = null;
+        this.updateQuizControls();
+    }
+    
+    updateQuizControls() {
+        const isFirstQuestion = this.currentQuestionIndex === 0;
+        const isLastQuestion = this.currentQuestionIndex === this.quizQuestions.length - 1;
+        const hasAnswer = this.quizAnswers[this.currentQuestionIndex] !== null;
+        
+        // Previous button
+        document.getElementById('quiz-prev').classList.toggle('hidden', isFirstQuestion);
+        document.getElementById('quiz-prev').disabled = isFirstQuestion;
+        
+        // Next button (only show if answered and not last question)
+        document.getElementById('quiz-next').classList.toggle('hidden', !hasAnswer || isLastQuestion);
+        
+        // Skip button (hide on last question)
+        document.getElementById('quiz-skip').classList.toggle('hidden', isLastQuestion);
+        
+        // Submit button (only show on last question)
+        document.getElementById('quiz-submit').classList.toggle('hidden', !isLastQuestion);
     }
     
     selectQuizAnswer(optionIndex) {
-        if (this.selectedAnswer !== null) return; // Already answered
-        
         this.selectedAnswer = optionIndex;
         const question = this.quizQuestions[this.currentQuestionIndex];
-        const isCorrect = optionIndex === question.correctAnswer;
         
-        if (isCorrect) {
-            this.quizScore++;
-        }
+        // Save answer for navigation
+        this.quizAnswers[this.currentQuestionIndex] = optionIndex;
         
         // Show correct/incorrect styling
         document.querySelectorAll('.quiz-option').forEach((option, index) => {
             option.disabled = true;
             if (index === question.correctAnswer) {
                 option.classList.add('correct');
-            } else if (index === optionIndex && !isCorrect) {
+            } else if (index === optionIndex && index !== question.correctAnswer) {
                 option.classList.add('incorrect');
             }
         });
         
-        // Show next button
-        document.getElementById('quiz-next').classList.remove('hidden');
+        // Auto-advance to next question after 1.5 seconds
+        setTimeout(() => {
+            if (this.currentQuestionIndex < this.quizQuestions.length - 1) {
+                this.nextQuizQuestion();
+            } else {
+                this.updateQuizControls();
+            }
+        }, 1500);
     }
     
     nextQuizQuestion() {
-        this.currentQuestionIndex++;
-        this.updateQuizScreen();
+        if (this.currentQuestionIndex < this.quizQuestions.length - 1) {
+            this.currentQuestionIndex++;
+            this.selectedAnswer = this.quizAnswers[this.currentQuestionIndex];
+            this.updateQuizScreen();
+        }
+    }
+    
+    previousQuizQuestion() {
+        if (this.currentQuestionIndex > 0) {
+            this.currentQuestionIndex--;
+            this.selectedAnswer = this.quizAnswers[this.currentQuestionIndex];
+            this.updateQuizScreen();
+        }
+    }
+    
+    skipQuizQuestion() {
+        this.quizAnswers[this.currentQuestionIndex] = null; // Mark as skipped
+        if (this.currentQuestionIndex < this.quizQuestions.length - 1) {
+            this.nextQuizQuestion();
+        } else {
+            this.updateQuizControls();
+        }
+    }
+    
+    showQuizConfirmation() {
+        const answeredCount = this.quizAnswers.filter(answer => answer !== null).length;
+        const totalQuestions = this.quizQuestions.length;
+        const unansweredCount = totalQuestions - answeredCount;
+        
+        document.getElementById('answered-count').textContent = answeredCount;
+        document.getElementById('total-questions').textContent = totalQuestions;
+        
+        const warningElement = document.getElementById('unanswered-warning');
+        if (unansweredCount > 0) {
+            warningElement.classList.remove('hidden');
+        } else {
+            warningElement.classList.add('hidden');
+        }
+        
+        document.getElementById('quiz-confirmation-modal').classList.remove('hidden');
+    }
+    
+    hideQuizConfirmation() {
+        document.getElementById('quiz-confirmation-modal').classList.add('hidden');
+    }
+    
+    submitQuiz() {
+        // Calculate score
+        this.quizScore = 0;
+        this.quizAnswers.forEach((answer, index) => {
+            if (answer !== null && answer === this.quizQuestions[index].correctAnswer) {
+                this.quizScore++;
+            }
+        });
+        
+        this.hideQuizConfirmation();
+        this.showQuizResults();
     }
     
     showQuizResults() {

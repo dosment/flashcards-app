@@ -887,11 +887,11 @@ button {
 
 .chapter-action-btn {
     flex: 1;
-    padding: 8px 12px;
+    padding: 10px 15px;
     border: none;
     border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -1048,6 +1048,77 @@ button {
     background: #45a049;
     transform: translateY(-1px);
     box-shadow: var(--shadow-hover);
+}
+
+/* Enhanced Quiz Controls */
+.quiz-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.quiz-nav-button, .quiz-skip-button, .quiz-submit-button {
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quiz-nav-button {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.quiz-nav-button:hover:not(:disabled) {
+    background: #1976D2;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
+}
+
+.quiz-nav-button:disabled {
+    background: var(--border-color);
+    color: var(--text-light);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.quiz-skip-button {
+    background: var(--accent-color);
+    color: white;
+}
+
+.quiz-skip-button:hover {
+    background: #f57c00;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
+}
+
+.quiz-submit-button {
+    background: var(--danger-color);
+    color: white;
+}
+
+.quiz-submit-button:hover {
+    background: #d32f2f;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Quiz Confirmation Modal */
+.quiz-confirmation-info {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.warning {
+    color: var(--danger-color);
+    font-weight: 500;
+    margin-top: 10px;
 }
 
 /* Quiz Results */
@@ -1478,9 +1549,9 @@ button {
     }
     
     .chapter-action-btn {
-        padding: 8px 10px;
-        font-size: 13px;
-        min-height: 40px;
+        padding: 12px 15px;
+        font-size: 15px;
+        min-height: 44px;
     }
 }
 
