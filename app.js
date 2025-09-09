@@ -1839,8 +1839,17 @@ class FlashcardApp {
         // Shuffle the cards to randomize question order
         this.shuffleArray(cards);
         
-        this.quizQuestions = cards.map(card => {
-            // Create wrong answers by getting definitions from other cards
+        // Check if this is a multiplication quiz
+        const isMultiplicationQuiz = cards.length > 0 && 
+            cards[0].front.includes('×') && cards[0].front.includes('=');
+        
+        // For multiplication quizzes, limit to 20 random questions
+        const quizCards = isMultiplicationQuiz && cards.length > 20 
+            ? cards.slice(0, 20) 
+            : cards;
+        
+        this.quizQuestions = quizCards.map(card => {
+            // Create wrong answers by getting definitions from other cards (use full deck)
             const otherCards = cards.filter(c => c.id !== card.id);
             this.shuffleArray(otherCards);
             
