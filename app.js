@@ -41,7 +41,7 @@ class FlashcardApp {
         console.log('FlashcardApp initialization complete');
         
         // Create vocabulary data if no data exists or if version is outdated
-        const DATA_VERSION = '2.4'; // Added multiplication tables
+        const DATA_VERSION = '2.5'; // Clean multiplication card format
         
         // Check for mixed/corrupted data and force clean refresh
         const needsUpdate = this.userData.subjects.length === 0 || 
@@ -1270,7 +1270,7 @@ class FlashcardApp {
             for (let j = 1; j <= 12; j++) {
                 cards.push({
                     id: this.generateId(),
-                    front: `${i} × ${j}`,
+                    front: `${i} × ${j} = ___`,
                     back: `${i * j}`
                 });
             }
@@ -1850,8 +1850,14 @@ class FlashcardApp {
             const options = [card.back, ...wrongAnswers];
             this.shuffleArray(options);
             
+            // Check if this is a multiplication card (contains × and = ___)
+            const isMultiplicationCard = card.front.includes('×') && card.front.includes('=');
+            const questionText = isMultiplicationCard 
+                ? card.front.replace('___', '__') // Clean up the blank for quiz display
+                : `What is the definition of "${card.front}"?`;
+            
             return {
-                question: `What is the definition of "${card.front}"?`,
+                question: questionText,
                 options: options,
                 correctAnswer: options.indexOf(card.back),
                 term: card.front
