@@ -634,7 +634,7 @@ button {
 }
 
 .progress-bar {
-    width: 200px;
+    width: min(300px, 60vw);
     height: 8px;
     background: var(--border-color);
     border-radius: 4px;
@@ -1045,8 +1045,9 @@ button {
 }
 
 .quiz-next-button:hover {
-    background: var(--primary-hover);
+    background: #45a049;
     transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
 }
 
 /* Quiz Results */
@@ -1133,7 +1134,7 @@ button {
 }
 
 .quiz-action-button:not(.secondary):hover {
-    background: var(--primary-hover);
+    background: #45a049;
     transform: translateY(-1px);
 }
 
