@@ -86,10 +86,6 @@ class FlashcardApp {
             console.error('Error saving data:', e);
         }
     }
-        
-        // Update title to show current user
-        this.updateTitle();
-    }
     
     updateTitle() {
         document.querySelector('.app-title').textContent = 'My Flashcards';
