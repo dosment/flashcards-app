@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Champion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="user-screen" class="screen active">
+            <h1>Math Champion</h1>
+            <p class="subtitle">Who's playing?</p>
+            <div id="user-list"></div>
+            <div id="new-user-form">
+                <input type="text" id="new-user-input" placeholder="Enter your name" maxlength="20">
+                <button id="add-user-btn">Play</button>
+            </div>
+        </div>
+
+        <div id="start-screen" class="screen">
+            <h1 id="welcome-msg">Math Champion</h1>
+            <p class="subtitle">How far can you go?</p>
+            <div id="level-select">
+                <button class="level-btn" data-max="5">
+                    <span class="level-name">Beginner</span>
+                    <span class="level-range">1-5</span>
+                </button>
+                <button class="level-btn" data-max="10">
+                    <span class="level-name">Explorer</span>
+                    <span class="level-range">1-10</span>
+                </button>
+                <button class="level-btn" data-max="12">
+                    <span class="level-name">Champion</span>
+                    <span class="level-range">1-12</span>
+                </button>
+            </div>
+            <div id="start-footer">
+                <button id="progress-btn">My Progress</button>
+                <button id="switch-user-btn">Switch Player</button>
+            </div>
+        </div>
+
+        <div id="game-screen" class="screen">
+            <div id="score-bar">
+                <span id="score">0</span>
+            </div>
+            <div id="streak-display"></div>
+            <div id="question">
+                <span id="num1"></span>
+                <span class="operator">x</span>
+                <span id="num2"></span>
+                <span class="equals">=</span>
+                <span id="answer-display">?</span>
+            </div>
+            <div id="feedback"></div>
+            <div id="answer-grid"></div>
+            <button id="quit-btn">Quit</button>
+        </div>
+
+        <div id="result-screen" class="screen">
+            <h2 id="result-title">Quiz Complete</h2>
+            <div id="result-stats"></div>
+            <button id="play-again-btn">Play Again</button>
+            <button id="result-menu-btn">Menu</button>
+        </div>
+
+        <div id="history-screen" class="screen">
+            <h2>Your Progress</h2>
+            <div id="mastery-grid"></div>
+            <h3 id="history-title">Recent Games</h3>
+            <div id="history-list"></div>
+            <button id="history-back-btn">Back</button>
+        </div>
+
+        <div id="celebration" class="hidden"></div>
+    </div>
+    <script type="module" src="app.js"></script>
+</body>
+</html>

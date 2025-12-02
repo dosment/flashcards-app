@@ -1,0 +1,15 @@
+# Local IDE/tool settings
+.claude/
+
+# Development artifacts
+personas/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Dependencies (future-proofing)
+node_modules/
