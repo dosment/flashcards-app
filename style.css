@@ -120,6 +120,7 @@ h2 {
 
 #new-user-form {
     display: flex;
+    flex-direction: column;
     gap: 10px;
     margin-top: 20px;
 }
@@ -148,6 +149,7 @@ h2 {
     color: white;
     cursor: pointer;
     transition: transform 0.15s;
+    width: 100%;
 }
 
 #add-user-btn:hover {
@@ -310,8 +312,9 @@ h2 {
 }
 
 #answer-display {
-    min-width: 100px;
+    min-width: 80px;
     color: var(--color-primary);
+    text-align: center;
 }
 
 #feedback {
@@ -812,10 +815,6 @@ h2 {
         gap: 10px;
     }
 
-    #new-user-form {
-        flex-direction: column;
-    }
-
     #start-footer {
         flex-direction: column;
         gap: 8px;
@@ -840,6 +839,14 @@ h2 {
     .user-btn {
         padding: 14px 20px;
         font-size: 1.1rem;
+    }
+
+    #new-user-input {
+        padding: 12px 16px;
+    }
+
+    #add-user-btn {
+        padding: 12px 20px;
     }
 }
 
@@ -870,13 +877,13 @@ h2 {
     }
 
     #question {
-        font-size: 2.4rem;
-        gap: 8px;
+        font-size: 2.2rem;
+        gap: 6px;
         margin-bottom: 12px;
     }
 
     #answer-display {
-        min-width: 60px;
+        min-width: 50px;
     }
 
     .answer-btn {
@@ -986,8 +993,12 @@ h2 {
     }
 
     #question {
-        font-size: 2rem;
-        gap: 6px;
+        font-size: 1.8rem;
+        gap: 4px;
+    }
+
+    #answer-display {
+        min-width: 45px;
     }
 
     .answer-btn {
