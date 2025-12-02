@@ -751,16 +751,23 @@ h2 {
     }
 
     #new-user-form {
-        gap: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         margin-top: 12px;
+        width: 100%;
     }
 
     #new-user-input {
-        padding: 12px 16px;
+        width: 100%;
+        padding: 14px 16px;
+        box-sizing: border-box;
     }
 
     #add-user-btn {
-        padding: 12px 20px;
+        width: 100%;
+        padding: 14px 20px;
+        box-sizing: border-box;
     }
 
     #question {
@@ -870,12 +877,23 @@ h2 {
         font-size: 1.1rem;
     }
 
+    #new-user-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
     #new-user-input {
-        padding: 12px 16px;
+        width: 100%;
+        padding: 14px 16px;
+        box-sizing: border-box;
     }
 
     #add-user-btn {
-        padding: 12px 20px;
+        width: 100%;
+        padding: 14px 20px;
+        box-sizing: border-box;
     }
 }
 
@@ -969,14 +987,25 @@ h2 {
         font-size: 1rem;
     }
 
+    #new-user-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
     #new-user-input {
-        padding: 12px 14px;
-        font-size: 1rem;
+        width: 100%;
+        padding: 14px 14px;
+        font-size: 16px;
+        box-sizing: border-box;
     }
 
     #add-user-btn {
-        padding: 12px 20px;
+        width: 100%;
+        padding: 14px 20px;
         font-size: 1rem;
+        box-sizing: border-box;
     }
 
     #mastery-grid {
@@ -1035,6 +1064,19 @@ h2 {
     .answer-btn {
         padding: 14px;
         font-size: 1.2rem;
+    }
+
+    #new-user-form {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    #new-user-input,
+    #add-user-btn {
+        width: 100%;
+        box-sizing: border-box;
     }
 
     #mastery-grid {
