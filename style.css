@@ -22,6 +22,19 @@
     box-sizing: border-box;
 }
 
+/* Prevent text selection and improve touch behavior on mobile */
+button, .user-btn, .level-btn, .answer-btn {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Ensure minimum touch target size (44px iOS / 48px Android) */
+button, .user-btn, .level-btn, .answer-btn {
+    min-height: 44px;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--gradient-primary);
@@ -114,7 +127,7 @@ h2 {
 #new-user-input {
     flex: 1;
     padding: 14px 18px;
-    font-size: 1.1rem;
+    font-size: 16px; /* Minimum 16px prevents iOS zoom on focus */
     border: 2px solid #ddd;
     border-radius: 12px;
     outline: none;
@@ -283,10 +296,12 @@ h2 {
     justify-content: center;
     align-items: center;
     gap: 15px;
-    font-size: 4rem;
+    font-size: clamp(2rem, 10vw, 4rem);
     font-weight: bold;
     color: #333;
     margin-bottom: 20px;
+    flex-wrap: nowrap;
+    overflow: hidden;
 }
 
 #question .operator,
@@ -694,7 +709,62 @@ h2 {
     }
 }
 
-@media (max-width: 400px) {
+/* Mobile-first responsive design for all modern phones */
+
+/* Large phones (iPhone Plus/Max, large Android) - 430px and below */
+@media (max-width: 430px) {
+    body {
+        padding: 16px;
+        padding-top: max(16px, env(safe-area-inset-top));
+        padding-bottom: max(16px, env(safe-area-inset-bottom));
+    }
+
+    .screen {
+        padding: 30px 24px;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 24px;
+    }
+
+    #question {
+        font-size: 3.2rem;
+        gap: 12px;
+    }
+
+    #answer-display {
+        min-width: 80px;
+    }
+
+    .answer-btn {
+        padding: 22px;
+        font-size: 1.8rem;
+    }
+
+    #answer-grid {
+        gap: 12px;
+    }
+}
+
+/* Medium phones (iPhone 14/15 standard, most Android) - 390px and below */
+@media (max-width: 390px) {
+    body {
+        padding: 12px;
+        padding-top: max(12px, env(safe-area-inset-top));
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+    }
+
+    .screen {
+        padding: 24px 20px;
+        border-radius: 18px;
+    }
+
     h1 {
         font-size: 2rem;
     }
@@ -703,19 +773,43 @@ h2 {
         font-size: 1.6rem;
     }
 
+    .subtitle {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+
     #question {
         font-size: 2.8rem;
         gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    #answer-display {
+        min-width: 70px;
     }
 
     .answer-btn {
         padding: 20px;
         font-size: 1.6rem;
+        border-radius: 14px;
+    }
+
+    #answer-grid {
+        gap: 10px;
+        margin-bottom: 24px;
     }
 
     .level-btn {
-        padding: 16px;
+        padding: 16px 20px;
         font-size: 1.2rem;
+    }
+
+    .level-range {
+        font-size: 1rem;
+    }
+
+    #level-select {
+        gap: 10px;
     }
 
     #new-user-form {
@@ -724,6 +818,244 @@ h2 {
 
     #start-footer {
         flex-direction: column;
+        gap: 8px;
+        margin-top: 24px;
+    }
+
+    #mastery-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+
+    .mastery-cell .table-num {
+        font-size: 0.9rem;
+    }
+
+    #feedback {
+        min-height: 50px;
+        font-size: 1.3rem;
+        margin-bottom: 16px;
+    }
+
+    .user-btn {
+        padding: 14px 20px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Small phones (iPhone SE, older/budget devices) - 360px and below */
+@media (max-width: 360px) {
+    body {
+        padding: 8px;
+        padding-top: max(8px, env(safe-area-inset-top));
+        padding-bottom: max(8px, env(safe-area-inset-bottom));
+    }
+
+    .screen {
+        padding: 20px 16px;
+        border-radius: 16px;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 16px;
+    }
+
+    #question {
+        font-size: 2.4rem;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    #answer-display {
+        min-width: 60px;
+    }
+
+    .answer-btn {
+        padding: 16px;
+        font-size: 1.4rem;
+        border-radius: 12px;
+    }
+
+    #answer-grid {
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .level-btn {
+        padding: 14px 16px;
+        font-size: 1.1rem;
+        border-radius: 10px;
+    }
+
+    .level-range {
+        font-size: 0.9rem;
+    }
+
+    #streak-display {
+        min-height: 40px;
+        margin-bottom: 10px;
+    }
+
+    .streak-dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .streak-dot.milestone {
+        width: 14px;
+        height: 14px;
+    }
+
+    #feedback {
+        min-height: 44px;
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+
+    #quit-btn {
+        padding: 10px 24px;
+        font-size: 0.9rem;
+    }
+
+    .user-btn {
+        padding: 12px 16px;
+        font-size: 1rem;
+    }
+
+    #new-user-input {
+        padding: 12px 14px;
+        font-size: 1rem;
+    }
+
+    #add-user-btn {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+
+    #mastery-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+    }
+
+    .mastery-cell {
+        font-size: 0.65rem;
+        border-radius: 6px;
+    }
+
+    .mastery-cell .table-num {
+        font-size: 0.8rem;
+    }
+
+    .mastery-cell .pct {
+        font-size: 0.55rem;
+    }
+
+    .mastery-legend {
         gap: 10px;
+        font-size: 0.65rem;
+    }
+
+    .history-item {
+        padding: 12px 14px;
+        font-size: 0.85rem;
+    }
+
+    #result-screen button {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
+
+/* Extra small phones (320px, iPhone SE in constrained scenarios) */
+@media (max-width: 320px) {
+    .screen {
+        padding: 16px 12px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    #question {
+        font-size: 2rem;
+        gap: 6px;
+    }
+
+    .answer-btn {
+        padding: 14px;
+        font-size: 1.2rem;
+    }
+
+    #mastery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Landscape orientation - ensure content stays usable */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 8px;
+        align-items: flex-start;
+    }
+
+    .screen {
+        padding: 16px 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+    }
+
+    .subtitle {
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+    }
+
+    #question {
+        font-size: 2.2rem;
+        margin-bottom: 8px;
+    }
+
+    #streak-display {
+        min-height: 30px;
+        margin-bottom: 8px;
+    }
+
+    #feedback {
+        min-height: 36px;
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+
+    #answer-grid {
+        margin-bottom: 12px;
+    }
+
+    .answer-btn {
+        padding: 12px;
+        font-size: 1.2rem;
+    }
+
+    #level-select {
+        gap: 8px;
+    }
+
+    .level-btn {
+        padding: 10px 16px;
+        font-size: 1rem;
+    }
+
+    #history-list {
+        max-height: 120px;
     }
 }
