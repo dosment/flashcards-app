@@ -44,6 +44,11 @@ function bindEvents() {
     UI.getElement('history-back-btn').addEventListener('click', showStartScreen);
     UI.getElement('play-again-btn').addEventListener('click', () => startGame(game.maxNumber));
     UI.getElement('result-menu-btn').addEventListener('click', showStartScreen);
+
+    const backBtn = UI.getElement('back-to-home-btn');
+    if (backBtn) {
+        backBtn.addEventListener('click', () => window.location.href = 'index.html');
+    }
 }
 
 // User management

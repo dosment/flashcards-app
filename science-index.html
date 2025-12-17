@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Flashcards - 6th Grade</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="user-screen" class="screen active">
+            <h1>Science Flashcards</h1>
+            <p class="subtitle">6th Grade - Who's studying?</p>
+            <div id="user-list"></div>
+            <div id="new-user-form">
+                <input type="text" id="new-user-input" placeholder="Enter your name" maxlength="20">
+                <button id="add-user-btn">Start</button>
+            </div>
+        </div>
+
+        <div id="start-screen" class="screen">
+            <h1 id="welcome-msg">Science Flashcards</h1>
+            <p class="subtitle">Choose a unit</p>
+            <div id="level-select">
+                <button class="level-btn" data-unit="unit4">
+                    <span class="level-name">Unit 4: Energy</span>
+                    <span class="level-range">Energy Transfer & Transformations</span>
+                </button>
+            </div>
+            <div id="start-footer">
+                <button id="progress-btn">My Progress</button>
+                <button id="switch-user-btn">Switch Student</button>
+                <button id="back-to-home-btn">Back to Home</button>
+            </div>
+        </div>
+
+        <div id="game-screen" class="screen">
+            <div id="score-bar">
+                <span id="score">0</span>
+            </div>
+            <div id="streak-display"></div>
+            <div id="question">
+                <span id="card-front"></span>
+            </div>
+            <div id="feedback"></div>
+            <button id="show-answer-btn" class="hidden">Show Answer</button>
+            <div id="card-back" class="hidden">
+                <span id="answer-display"></span>
+                <div id="answer-buttons"></div>
+            </div>
+            <button id="quit-btn">Quit</button>
+        </div>
+
+        <div id="result-screen" class="screen">
+            <h2 id="result-title">Session Complete</h2>
+            <div id="result-stats"></div>
+            <button id="play-again-btn">Study Again</button>
+            <button id="result-menu-btn">Menu</button>
+        </div>
+
+        <div id="history-screen" class="screen">
+            <h2>Your Progress</h2>
+            <div id="mastery-grid"></div>
+            <h3 id="history-title">Recent Sessions</h3>
+            <div id="history-list"></div>
+            <button id="history-back-btn">Back</button>
+        </div>
+
+        <div id="celebration" class="hidden"></div>
+    </div>
+    <script type="module" src="science-app.js"></script>
+</body>
+</html>

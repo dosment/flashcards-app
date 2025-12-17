@@ -447,6 +447,100 @@ h2 {
     font-size: 1.3rem;
 }
 
+/* Flashcard styles */
+#card-front {
+    display: block;
+    padding: 40px 20px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px dashed var(--color-primary);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+}
+
+#card-back {
+    padding: 40px 20px;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    animation: flipIn 0.5s ease-out;
+}
+
+#card-back span,
+#card-back #answer-display {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    color: white !important;
+}
+
+#answer-buttons {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+#answer-buttons .answer-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    padding: 15px;
+    font-size: 1rem;
+}
+
+#answer-buttons .answer-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+#show-answer-btn {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    background: var(--gradient-success);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+    margin-bottom: 20px;
+}
+
+#show-answer-btn:hover {
+    transform: scale(1.05);
+}
+
+#show-answer-btn:active {
+    transform: scale(0.95);
+}
+
+#show-answer-btn.hidden {
+    display: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes flipIn {
+    0% {
+        opacity: 0;
+        transform: rotateY(180deg);
+    }
+    100% {
+        opacity: 1;
+        transform: rotateY(0);
+    }
+}
+
 #result-screen button {
     padding: 14px 30px;
     font-size: 1.1rem;
