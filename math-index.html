@@ -3,79 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Math Champion - Practice multiplication tables 1-12 with adaptive learning">
     <title>Math Champion</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
-        <div id="user-screen" class="screen active">
-            <h1>Math Champion</h1>
+    <main id="app">
+        <div id="user-screen" class="screen active" role="region" aria-labelledby="user-heading">
+            <h1 id="user-heading">Math Champion</h1>
             <p class="subtitle">Who's playing?</p>
-            <div id="user-list"></div>
-            <div id="new-user-form">
-                <input type="text" id="new-user-input" placeholder="Enter your name" maxlength="20">
-                <button id="add-user-btn">Play</button>
-            </div>
+            <div id="user-list" role="list" aria-label="Existing players"></div>
+            <form id="new-user-form" onsubmit="return false;">
+                <label for="new-user-input" class="sr-only">Enter your name</label>
+                <input type="text" id="new-user-input" placeholder="Enter your name" maxlength="20" autocomplete="name">
+                <button type="submit" id="add-user-btn">Play</button>
+            </form>
         </div>
 
-        <div id="start-screen" class="screen">
+        <div id="start-screen" class="screen" role="region" aria-labelledby="welcome-msg">
             <h1 id="welcome-msg">Math Champion</h1>
             <p class="subtitle">How far can you go?</p>
-            <div id="level-select">
-                <button class="level-btn" data-max="5">
+            <div id="level-select" role="list" aria-label="Difficulty levels">
+                <button class="level-btn" data-max="5" aria-label="Beginner level - multiplication tables 1 through 5">
                     <span class="level-name">Beginner</span>
                     <span class="level-range">1-5</span>
                 </button>
-                <button class="level-btn" data-max="10">
+                <button class="level-btn" data-max="10" aria-label="Explorer level - multiplication tables 1 through 10">
                     <span class="level-name">Explorer</span>
                     <span class="level-range">1-10</span>
                 </button>
-                <button class="level-btn" data-max="12">
+                <button class="level-btn" data-max="12" aria-label="Champion level - multiplication tables 1 through 12">
                     <span class="level-name">Champion</span>
                     <span class="level-range">1-12</span>
                 </button>
             </div>
-            <div id="start-footer">
-                <button id="progress-btn">My Progress</button>
-                <button id="switch-user-btn">Switch Player</button>
-                <button id="back-to-home-btn">Back to Home</button>
-            </div>
+            <nav id="start-footer" aria-label="Navigation">
+                <button id="progress-btn" aria-label="View my progress">My Progress</button>
+                <button id="switch-user-btn" aria-label="Switch to different player">Switch Player</button>
+                <button id="back-to-home-btn" aria-label="Return to subject selection">Back to Home</button>
+            </nav>
         </div>
 
-        <div id="game-screen" class="screen">
+        <div id="game-screen" class="screen" role="region" aria-label="Math question" aria-live="polite">
             <div id="score-bar">
-                <span id="score">0</span>
+                <span id="score" aria-label="Current score">0</span>
             </div>
-            <div id="streak-display"></div>
-            <div id="question">
+            <div id="streak-display" aria-label="Current streak"></div>
+            <div id="question" role="heading" aria-level="2" aria-label="Multiplication problem">
                 <span id="num1"></span>
-                <span class="operator">x</span>
+                <span class="operator" aria-hidden="true">x</span>
                 <span id="num2"></span>
-                <span class="equals">=</span>
+                <span class="equals" aria-hidden="true">=</span>
                 <span id="answer-display">?</span>
             </div>
-            <div id="feedback"></div>
-            <div id="answer-grid"></div>
-            <button id="quit-btn">Quit</button>
+            <div id="feedback" role="status" aria-live="polite"></div>
+            <div id="answer-grid" role="group" aria-label="Answer choices"></div>
+            <button id="quit-btn" aria-label="Quit current game">Quit</button>
         </div>
 
-        <div id="result-screen" class="screen">
+        <div id="result-screen" class="screen" role="region" aria-labelledby="result-title">
             <h2 id="result-title">Quiz Complete</h2>
-            <div id="result-stats"></div>
-            <button id="play-again-btn">Play Again</button>
-            <button id="result-menu-btn">Menu</button>
+            <div id="result-stats" role="list" aria-label="Game statistics"></div>
+            <button id="play-again-btn" aria-label="Play this level again">Play Again</button>
+            <button id="result-menu-btn" aria-label="Return to menu">Menu</button>
         </div>
 
-        <div id="history-screen" class="screen">
-            <h2>Your Progress</h2>
-            <div id="mastery-grid"></div>
+        <div id="history-screen" class="screen" role="region" aria-labelledby="history-heading">
+            <h2 id="history-heading">Your Progress</h2>
+            <div id="mastery-grid" role="grid" aria-label="Multiplication table mastery levels"></div>
             <h3 id="history-title">Recent Games</h3>
-            <div id="history-list"></div>
-            <button id="history-back-btn">Back</button>
+            <div id="history-list" role="list" aria-label="Game history"></div>
+            <button id="history-back-btn" aria-label="Go back">Back</button>
         </div>
 
-        <div id="celebration" class="hidden"></div>
-    </div>
+        <div id="celebration" class="hidden" aria-hidden="true"></div>
+    </main>
     <script type="module" src="app.js"></script>
 </body>
 </html>

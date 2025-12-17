@@ -3,71 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="6th Grade Science Flashcards - Unit 4: Energy Transfer and Transformations">
     <title>Science Flashcards - 6th Grade</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
-        <div id="user-screen" class="screen active">
-            <h1>Science Flashcards</h1>
+    <main id="app">
+        <div id="user-screen" class="screen active" role="region" aria-labelledby="user-heading">
+            <h1 id="user-heading">Science Flashcards</h1>
             <p class="subtitle">6th Grade - Who's studying?</p>
-            <div id="user-list"></div>
-            <div id="new-user-form">
-                <input type="text" id="new-user-input" placeholder="Enter your name" maxlength="20">
-                <button id="add-user-btn">Start</button>
-            </div>
+            <div id="user-list" role="list" aria-label="Existing users"></div>
+            <form id="new-user-form" onsubmit="return false;">
+                <label for="new-user-input" class="sr-only">Enter your name</label>
+                <input type="text" id="new-user-input" placeholder="Enter your name" maxlength="20" autocomplete="name">
+                <button type="submit" id="add-user-btn">Start</button>
+            </form>
         </div>
 
-        <div id="start-screen" class="screen">
+        <div id="start-screen" class="screen" role="region" aria-labelledby="welcome-msg">
             <h1 id="welcome-msg">Science Flashcards</h1>
             <p class="subtitle">Choose a unit</p>
-            <div id="level-select">
-                <button class="level-btn" data-unit="unit4">
+            <div id="level-select" role="list" aria-label="Available units">
+                <button class="level-btn" data-unit="unit4" aria-label="Unit 4: Energy - Energy Transfer and Transformations">
                     <span class="level-name">Unit 4: Energy</span>
                     <span class="level-range">Energy Transfer & Transformations</span>
                 </button>
             </div>
-            <div id="start-footer">
-                <button id="progress-btn">My Progress</button>
-                <button id="switch-user-btn">Switch Student</button>
-                <button id="back-to-home-btn">Back to Home</button>
-            </div>
+            <nav id="start-footer" aria-label="Navigation">
+                <button id="progress-btn" aria-label="View my progress">My Progress</button>
+                <button id="switch-user-btn" aria-label="Switch to different student">Switch Student</button>
+                <button id="back-to-home-btn" aria-label="Return to subject selection">Back to Home</button>
+            </nav>
         </div>
 
-        <div id="game-screen" class="screen">
+        <div id="game-screen" class="screen" role="region" aria-labelledby="card-front" aria-live="polite">
             <div id="score-bar">
-                <span id="score">0</span>
+                <span id="score" aria-label="Current score">0</span>
             </div>
-            <div id="streak-display"></div>
+            <div id="streak-display" aria-label="Current streak"></div>
             <div id="question">
-                <span id="card-front"></span>
+                <span id="card-front" role="heading" aria-level="2"></span>
             </div>
-            <div id="feedback"></div>
-            <button id="show-answer-btn" class="hidden">Show Answer</button>
-            <div id="card-back" class="hidden">
+            <div id="feedback" role="status" aria-live="polite"></div>
+            <button id="show-answer-btn" class="hidden" aria-label="Show the answer">Show Answer</button>
+            <div id="card-back" class="hidden" aria-live="polite">
                 <span id="answer-display"></span>
-                <div id="answer-buttons"></div>
+                <div id="answer-buttons" role="group" aria-label="Rate your answer"></div>
             </div>
-            <button id="quit-btn">Quit</button>
+            <button id="quit-btn" aria-label="Quit current session">Quit</button>
         </div>
 
-        <div id="result-screen" class="screen">
+        <div id="result-screen" class="screen" role="region" aria-labelledby="result-title">
             <h2 id="result-title">Session Complete</h2>
-            <div id="result-stats"></div>
-            <button id="play-again-btn">Study Again</button>
-            <button id="result-menu-btn">Menu</button>
+            <div id="result-stats" role="list" aria-label="Session statistics"></div>
+            <button id="play-again-btn" aria-label="Study this unit again">Study Again</button>
+            <button id="result-menu-btn" aria-label="Return to menu">Menu</button>
         </div>
 
-        <div id="history-screen" class="screen">
-            <h2>Your Progress</h2>
-            <div id="mastery-grid"></div>
+        <div id="history-screen" class="screen" role="region" aria-labelledby="history-heading">
+            <h2 id="history-heading">Your Progress</h2>
+            <div id="mastery-grid" role="grid" aria-label="Card mastery levels"></div>
             <h3 id="history-title">Recent Sessions</h3>
-            <div id="history-list"></div>
-            <button id="history-back-btn">Back</button>
+            <div id="history-list" role="list" aria-label="Session history"></div>
+            <button id="history-back-btn" aria-label="Go back">Back</button>
         </div>
 
-        <div id="celebration" class="hidden"></div>
-    </div>
+        <div id="celebration" class="hidden" aria-hidden="true"></div>
+    </main>
     <script type="module" src="science-app.js"></script>
 </body>
 </html>

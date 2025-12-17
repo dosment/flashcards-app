@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flashcard Hub - Practice math and science with interactive flashcards">
     <title>Flashcard Hub</title>
     <link rel="stylesheet" href="style.css">
     <style>
@@ -78,29 +79,43 @@
             margin-bottom: 40px;
             font-size: 1.1rem;
         }
+
+        @media (max-width: 500px) {
+            .subject-card {
+                padding: 30px 20px;
+            }
+
+            .subject-card h2 {
+                font-size: 1.5rem;
+            }
+
+            .icon {
+                font-size: 2.5rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div id="app">
-        <div id="subject-screen" class="screen active">
-            <h1>📚 Flashcard Hub</h1>
+    <main id="app">
+        <div id="subject-screen" class="screen active" role="main" aria-labelledby="main-heading">
+            <h1 id="main-heading">Flashcard Hub</h1>
             <p class="subtitle">Choose a subject to get started</p>
 
-            <div class="subject-grid">
-                <button class="subject-card math-card" onclick="goToMath()">
-                    <span class="icon">🔢</span>
+            <nav class="subject-grid" aria-label="Subject selection">
+                <button class="subject-card math-card" onclick="goToMath()" aria-label="Math Champion - Practice multiplication tables 1 through 12">
+                    <span class="icon" aria-hidden="true">🔢</span>
                     <h2>Math Champion</h2>
                     <p>Practice multiplication tables (1-12)</p>
                 </button>
 
-                <button class="subject-card science-card" onclick="goToScience()">
-                    <span class="icon">🔬</span>
+                <button class="subject-card science-card" onclick="goToScience()" aria-label="Science Flashcards - 6th Grade Unit 4 Energy">
+                    <span class="icon" aria-hidden="true">🔬</span>
                     <h2>Science Flashcards</h2>
                     <p>6th Grade - Unit 4: Energy</p>
                 </button>
-            </div>
+            </nav>
         </div>
-    </div>
+    </main>
 
     <script>
         function goToMath() {
